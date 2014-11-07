@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>Clientes</title>
+	</h:head>
+	<h:body>
+			<ui:insert name="header">
+			<ui:include src="/Menu/menu.xhtml" />
+		</ui:insert>
+		<h:form>
+			<p:growl id="msg" />
+			<p:panel id="panelClientes" header="Clientes">
+				<div align="center">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Número de Documento" />
+						<p:inputText id="txtId" binding="#{clientesVista.txtId}">
+							<p:ajax listener="#{clientesVista.consultarTxtId}"
+								update="panelClientes,panelBotonesClientes,msg" />
+						</p:inputText>
+
+						<p:outputLabel value="Tipo de Documento" />
+						<p:selectOneMenu id="tipoDocumento"
+							binding="#{clientesVista.tipoDocumento}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+							<f:selectItems value="#{clientesVista.tiposDocumentos}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nombre:" />
+						<p:inputText id="txtNombre" binding="#{clientesVista.txtNombre}" />
+
+						<p:outputLabel value="Dirección:" />
+						<p:inputText id="txtDireccion"
+							binding="#{clientesVista.txtDireccion}" />
+
+						<p:outputLabel value="Teléfono:" />
+						<p:inputText id="txtTelefono"
+							binding="#{clientesVista.txtTelefono}" />
+
+						<p:outputLabel value="Email" />
+						<p:inputText id="txtEmail"
+							binding="#{clientesVista.txtEmail}" />
+
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			<p:panel id="panelBotonesClientes">
+				<div align="center">
+					<p:commandButton id="btnCrear" value="Crear"
+						action="#{clientesVista.accion_crear}"
+						binding="#{clientesVista.btnCrear}"
+						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
+
+					<p:commandButton id="btnModificar" value="Modificar"
+						action="#{clientesVista.accion_modificar}"
+						binding="#{clientesVista.btnModificar}"
+						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
+
+					<p:commandButton id="btnEliminar" value="Eliminar"
+						action="#{clientesVista.accion_eliminar}"
+						binding="#{clientesVista.btnEliminar}"
+						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
+
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						action="#{clientesVista.accion_limpiar}"
+						binding="#{clientesVista.btnLimpiar}"
+						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
+				</div>
+			</p:panel>
+			<p:panel id="panelTablaClientes">
+				<p:dataTable id="tablaClientes" value="#{clientesVista.clientes}"
+					var="cliente" paginator="true" rows="5">
+					<p:column headerText="Id">
+						<p:outputLabel value="#{cliente.cliId}" />
+					</p:column>
+					<p:column headerText="Tipo de documento">
+						<p:outputLabel value="#{cliente.tiposDocumentos.tdocNombre}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<p:outputLabel value="#{cliente.cliNombre}" />
+					</p:column>
+					<p:column headerText="Dirección">
+						<p:outputLabel value="#{cliente.cliDireccion}" />
+					</p:column>
+					<p:column headerText="Teléfono">
+						<p:outputLabel value="#{cliente.cliTelefono}" />
+					</p:column>
+					<p:column headerText="Email">
+						<p:outputLabel value="#{cliente.cliMail}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
