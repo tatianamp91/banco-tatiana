@@ -11,7 +11,7 @@ public class Cuentas implements java.io.Serializable {
 
 	// Fields
 
-	private String cueNumero;
+	private Long cueNumero;
 	private Clientes clientes;
 	private Double cueSaldo;
 	private String cueActiva;
@@ -26,7 +26,7 @@ public class Cuentas implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Cuentas(String cueNumero, Clientes clientes, Double cueSaldo,
+	public Cuentas(Long cueNumero, Clientes clientes, Double cueSaldo,
 			String cueActiva, String cueClave) {
 		this.cueNumero = cueNumero;
 		this.clientes = clientes;
@@ -36,7 +36,7 @@ public class Cuentas implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Cuentas(String cueNumero, Clientes clientes, Double cueSaldo,
+	public Cuentas(Long cueNumero, Clientes clientes, Double cueSaldo,
 			String cueActiva, String cueClave, Set retiroses,
 			Set consignacioneses) {
 		this.cueNumero = cueNumero;
@@ -50,11 +50,11 @@ public class Cuentas implements java.io.Serializable {
 
 	// Property accessors
 
-	public String getCueNumero() {
+	public Long getCueNumero() {
 		return this.cueNumero;
 	}
 
-	public void setCueNumero(String cueNumero) {
+	public void setCueNumero(Long cueNumero) {
 		this.cueNumero = cueNumero;
 	}
 

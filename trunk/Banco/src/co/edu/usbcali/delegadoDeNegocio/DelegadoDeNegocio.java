@@ -68,7 +68,7 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 	
 	@Override
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception{
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception{
 		return clientesLogica.consultarClientesCuenta(numCuenta, idCliente, clave);
 	}
 
@@ -124,13 +124,18 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 
 	@Override
-	public Cuentas consultarCuenta(String cueNumero) throws Exception {
+	public Cuentas consultarCuenta(Long cueNumero) throws Exception {
 		return cuentasLogica.consultarCuenta(cueNumero);
 	}
 
 	@Override
 	public List<Cuentas> consultarCuentas() throws Exception {
 		return cuentasLogica.consultarCuentas();
+	}
+	
+	@Override
+	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception {
+		return cuentasLogica.consultarCuentasCliente(cliente);
 	}
 
 	@Override

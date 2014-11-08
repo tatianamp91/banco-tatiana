@@ -38,7 +38,7 @@ public class RetirosLogicaTest {
 			Retiros retiro = new Retiros();
 			
 			Long conCodigo = 1L;
-			Cuentas cuenta = cuentasLogica.consultarCuenta("4008-5305-0085");
+			Cuentas cuenta = cuentasLogica.consultarCuenta(400853050085L);
 			
 			RetirosId retiroId = new RetirosId();
 			

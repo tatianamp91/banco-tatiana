@@ -10,14 +10,15 @@
 		<title>Clientes</title>
 	</h:head>
 	<h:body>
-			<ui:insert name="header">
+		<ui:insert name="header">
 			<ui:include src="/Menu/menu.xhtml" />
 		</ui:insert>
 		<h:form>
 			<p:growl id="msg" />
-			<p:panel id="panelClientes" header="Clientes">
+			<p:panel id="panelClientes" header="Clientes"
+				style="height:180px;width:1320px">
 				<div align="center">
-					<p:panelGrid columns="2">
+					<p:panelGrid columns="4">
 						<p:outputLabel value="Número de Documento" />
 						<p:inputText id="txtId" binding="#{clientesVista.txtId}">
 							<p:ajax listener="#{clientesVista.consultarTxtId}"
@@ -43,13 +44,12 @@
 							binding="#{clientesVista.txtTelefono}" />
 
 						<p:outputLabel value="Email" />
-						<p:inputText id="txtEmail"
-							binding="#{clientesVista.txtEmail}" />
+						<p:inputText id="txtEmail" binding="#{clientesVista.txtEmail}" />
 
 					</p:panelGrid>
 				</div>
 			</p:panel>
-			<p:panel id="panelBotonesClientes">
+			<p:panel id="panelBotonesClientes" style="height:50px;width:1320px">
 				<div align="center">
 					<p:commandButton id="btnCrear" value="Crear"
 						action="#{clientesVista.accion_crear}"
@@ -72,28 +72,30 @@
 						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
 				</div>
 			</p:panel>
-			<p:panel id="panelTablaClientes">
-				<p:dataTable id="tablaClientes" value="#{clientesVista.clientes}"
-					var="cliente" paginator="true" rows="5">
-					<p:column headerText="Id">
-						<p:outputLabel value="#{cliente.cliId}" />
-					</p:column>
-					<p:column headerText="Tipo de documento">
-						<p:outputLabel value="#{cliente.tiposDocumentos.tdocNombre}" />
-					</p:column>
-					<p:column headerText="Nombre">
-						<p:outputLabel value="#{cliente.cliNombre}" />
-					</p:column>
-					<p:column headerText="Dirección">
-						<p:outputLabel value="#{cliente.cliDireccion}" />
-					</p:column>
-					<p:column headerText="Teléfono">
-						<p:outputLabel value="#{cliente.cliTelefono}" />
-					</p:column>
-					<p:column headerText="Email">
-						<p:outputLabel value="#{cliente.cliMail}" />
-					</p:column>
-				</p:dataTable>
+			<p:panel id="panelTablaClientes" style="height:350px;width:1320px">
+				<div align="center">
+					<p:dataTable id="tablaClientes" value="#{clientesVista.clientes}"
+						var="cliente" paginator="true" rows="5">
+						<p:column headerText="Id">
+							<p:outputLabel value="#{cliente.cliId}" />
+						</p:column>
+						<p:column headerText="Tipo de documento">
+							<p:outputLabel value="#{cliente.tiposDocumentos.tdocNombre}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<p:outputLabel value="#{cliente.cliNombre}" />
+						</p:column>
+						<p:column headerText="Dirección">
+							<p:outputLabel value="#{cliente.cliDireccion}" />
+						</p:column>
+						<p:column headerText="Teléfono">
+							<p:outputLabel value="#{cliente.cliTelefono}" />
+						</p:column>
+						<p:column headerText="Email">
+							<p:outputLabel value="#{cliente.cliMail}" />
+						</p:column>
+					</p:dataTable>
+				</div>
 			</p:panel>
 		</h:form>
 	</h:body>

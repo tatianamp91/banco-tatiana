@@ -167,9 +167,9 @@ public class ClientesLogica implements IClientesLogica {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception  {
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception  {
 		try{
-			if(numCuenta == null || numCuenta.trim().equals("")){
+			if(numCuenta == null){
 				throw new Exception("El número de la cuenta no puede ser vacio");
 			}
 			if(clave == null || clave.trim().equals("")){

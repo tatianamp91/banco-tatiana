@@ -11,7 +11,7 @@
                 <column name="RET_CODIGO" precision="10" scale="0" />
             </key-property>
             <key-many-to-one name="cuentas" class="co.edu.usbcali.modelo.Cuentas">
-                <column name="CUE_NUMERO" length="30" />
+                <column name="CUE_NUMERO" precision="10" scale="0"/>
             </key-many-to-one>
         </composite-id>
         <many-to-one name="usuarios" class="co.edu.usbcali.modelo.Usuarios" fetch="select">

@@ -16,6 +16,6 @@ public interface IClientesLogica {
 
 	public List<Clientes> consultarClientes () throws Exception;
 	
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception;
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception;
 
 }

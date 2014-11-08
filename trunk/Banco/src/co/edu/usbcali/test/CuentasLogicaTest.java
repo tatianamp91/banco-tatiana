@@ -30,7 +30,7 @@ public class CuentasLogicaTest {
 	public void crearCuenta () throws Exception {
 		try{
 			Cuentas cuenta = new Cuentas();
-			cuenta.setCueNumero("4008-5305-0085");//Colocar automatico
+			cuenta.setCueNumero(4853050085L);//Colocar automatico
 			Clientes cliente = clientesLogica.consultarCliente(1151938779L);
 			cuenta.setClientes(cliente);
 			

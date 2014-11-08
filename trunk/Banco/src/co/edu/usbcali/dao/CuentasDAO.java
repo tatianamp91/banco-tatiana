@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Cuentas;
 
 @Scope ("singleton")
@@ -33,7 +34,7 @@ public class CuentasDAO implements ICuentasDAO {
 	}
 
 	@Override
-	public Cuentas consultarCuenta(String cueNumero) throws Exception {
+	public Cuentas consultarCuenta(Long cueNumero) throws Exception {
 		return (Cuentas) sessionFactory.getCurrentSession().get(Cuentas.class, cueNumero);
 	}
 
@@ -44,7 +45,14 @@ public class CuentasDAO implements ICuentasDAO {
 	}	
 	
 	@Override
-	public List<Cuentas> consultarCuentasRetiros(String cueNumero) throws Exception {
+	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception {
+		String hql = "select cue from Cuentas cue, Clientes cli "
+				+ "where cli.cliId = cue.clientes.cliId and cli.cliId = "+cliente.getCliId();
+		return (List<Cuentas>) sessionFactory.getCurrentSession().createQuery(hql).list();
+	}
+	
+	@Override
+	public List<Cuentas> consultarCuentasRetiros(Long cueNumero) throws Exception {
 		String hql = "select cue from Cuentas cue, Retiros ret "
 				+ "where cue.cueNumero = ret.id.cuentas.cueNumero "
 				+ "and cue.cueNumero = '"+cueNumero+"'";
@@ -52,7 +60,7 @@ public class CuentasDAO implements ICuentasDAO {
 	}
 	
 	@Override
-	public List<Cuentas> consultarCuentasConsignaciones(String cueNumero) throws Exception {
+	public List<Cuentas> consultarCuentasConsignaciones(Long cueNumero) throws Exception {
 		String hql = "select cue from Cuentas cue, Consignaciones con "
 				+ "where cue.cueNumero = con.id.cuentas.cueNumero "
 				+ "and cue.cueNumero = '"+cueNumero+"'";
