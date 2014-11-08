@@ -1,6 +1,7 @@
 package co.edu.usbcali.dao;
 
 import java.util.List;
+
 import co.edu.usbcali.modelo.Consignaciones;
 import co.edu.usbcali.modelo.ConsignacionesId;
 
@@ -15,5 +16,7 @@ public interface IConsignacionesDAO {
 	public Consignaciones consultarConsignacion (ConsignacionesId  id) throws Exception;
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
+	
+	public  Long getConsecutivo(String sqlName) throws Exception;
 
 }

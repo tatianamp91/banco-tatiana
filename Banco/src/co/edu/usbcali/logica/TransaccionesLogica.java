@@ -3,6 +3,10 @@ package co.edu.usbcali.logica;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.usbcali.dao.IConsignacionesDAO;
 import co.edu.usbcali.dao.IRetirosDAO;
@@ -13,6 +17,8 @@ import co.edu.usbcali.modelo.Retiros;
 import co.edu.usbcali.modelo.RetirosId;
 import co.edu.usbcali.modelo.Usuarios;
 
+@Scope("singleton")
+@Service("TransaccionesLogica")
 public class TransaccionesLogica implements ITransaccionesLogica {
 	
 	@Autowired
@@ -24,6 +30,8 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 	@Autowired
 	private IRetirosDAO retirosDAO;
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void consignacion(Consignaciones consignacion) throws Exception {
 		try{
 			if(consignacion == null){
@@ -31,6 +39,9 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			}
 			if(consignacion.getId() == null){
 				throw new Exception("El id de la consignación no puede ser vacio");
+			}			
+			if(consignacion.getId().getConCodigo() == null){
+				throw new Exception("El código de la consignación no puede ser vacia");
 			}
 			if(consignacion.getId().getCuentas() == null){
 				throw new Exception("La cuenta de la consignación no puede ser vacia");
@@ -61,6 +72,7 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			if(consignacion.getId().getCuentas().getCueActiva().trim().equals("N") && consignacion.getConValor() < 100000D){
 					throw new Exception("La consignación debe ser mayor a $100.000, por apertura de cuenta");
 			}
+			
 			Consignaciones entidad = consignacionesDAO.consultarConsignacion(consignacion.getId());
 			if(entidad != null){
 				throw new Exception("La consignación ya existe");
@@ -83,6 +95,8 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 		}
 	}
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void retiro (Retiros retiro) throws Exception {
 		try{
 			if(retiro == null){
@@ -90,6 +104,9 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			}
 			if(retiro.getId() == null){
 				throw new Exception("El id del retiro no puede ser vacio");
+			}
+			if(retiro.getId().getRetCodigo() == null){
+				throw new Exception("El código del retiro no puede ser vacia");
 			}
 			if(retiro.getId().getCuentas() == null){
 				throw new Exception("La cuenta del retiro no puede ser vacia");
@@ -141,6 +158,8 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 		}
 	}
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void translado (Usuarios usuario, Double valorTranslado, Cuentas cuentaOrigen, Cuentas cuentaDestino) throws Exception {
 		try{
 			if(valorTranslado == null){

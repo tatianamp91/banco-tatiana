@@ -20,5 +20,5 @@ public interface IUsuariosDAO {
 	
 	public List<Usuarios> consultarUsuariosConsignaciones(Long usuCedula) throws Exception;
 	
-	public Usuarios consultarUsuariosLogin(String usuLogin) throws Exception;
+	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception;
 }

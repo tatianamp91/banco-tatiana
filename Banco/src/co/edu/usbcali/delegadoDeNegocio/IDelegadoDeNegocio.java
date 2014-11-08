@@ -38,6 +38,8 @@ public interface IDelegadoDeNegocio {
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
 	
+	public  Long getConsecutivo(String sqlName) throws Exception;
+	
 	public void crearCuenta (Cuentas cuenta) throws Exception;
 	
 	public void generarClave(Cuentas cuenta) throws Exception;
@@ -96,5 +98,11 @@ public interface IDelegadoDeNegocio {
 	public Usuarios consultarUsuario (Long  usuCedula) throws Exception;
 
 	public List<Usuarios> consultarUsuarios () throws Exception;
+	
+	public void consignacion(Consignaciones consignacion) throws Exception;
+	
+	public void retiro (Retiros retiro) throws Exception;
+	
+	public void translado (Usuarios usuario, Double valorTranslado, Cuentas cuentaOrigen, Cuentas cuentaDestino) throws Exception;
 
 }

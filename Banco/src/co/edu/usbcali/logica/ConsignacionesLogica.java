@@ -220,4 +220,14 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 			throw new Exception(e);
 		}
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public  Long getConsecutivo(String sqlName) throws Exception {
+		try{
+			return consignacionesDAO.getConsecutivo(sqlName);
+		}catch(Exception e){
+			throw new Exception(e);
+		}
+	}
 }
