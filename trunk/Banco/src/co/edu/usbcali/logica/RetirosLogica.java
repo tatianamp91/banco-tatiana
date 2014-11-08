@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import co.edu.usbcali.dao.IConsignacionesDAO;
 import co.edu.usbcali.dao.ICuentasDAO;
 import co.edu.usbcali.dao.IRetirosDAO;
 import co.edu.usbcali.dao.IUsuariosDAO;
@@ -299,6 +297,26 @@ public class RetirosLogica implements IRetirosLogica{
 	public List<Retiros> consultarRetiros() throws Exception {
 		try{
 			return retirosDAO.consultarRetiros();
+		}catch(Exception e){
+			throw new Exception(e);
+		}
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Retiros> consultarRetirosCuenta(Cuentas cuenta) throws Exception {
+		try{
+			return retirosDAO.consultarRetirosCuenta(cuenta);
+		}catch(Exception e){
+			throw new Exception(e);
+		}
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Long getConsecutivoRetiros(String sqlName) throws Exception {
+		try{
+			return retirosDAO.getConsecutivoRetiros(sqlName);
 		}catch(Exception e){
 			throw new Exception(e);
 		}

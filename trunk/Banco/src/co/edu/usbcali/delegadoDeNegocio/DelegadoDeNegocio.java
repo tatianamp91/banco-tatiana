@@ -106,8 +106,13 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 	
 	@Override
-	public  Long getConsecutivo(String sqlName) throws Exception {
-		return consignacionesLogica.getConsecutivo(sqlName);
+	public List<Consignaciones> consultarConsignacionesCuenta(Cuentas cuenta) throws Exception {
+		return consignacionesLogica.consultarConsignacionesCuenta(cuenta);
+	}
+	
+	@Override
+	public  Long getConsecutivoConsignaciones(String sqlName) throws Exception {
+		return consignacionesLogica.getConsecutivoConsignaciones(sqlName);
 	}
 
 	@Override
@@ -164,6 +169,16 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	@Override
 	public void eliminarRetiro(Retiros retiro) throws Exception {
 		retirosLogica.eliminarRetiro(retiro);
+	}
+	
+	@Override
+	public List<Retiros> consultarRetirosCuenta(Cuentas cuenta) throws Exception {
+		return retirosLogica.consultarRetirosCuenta(cuenta);
+	}
+	
+	@Override
+	public Long getConsecutivoRetiros(String sqlName) throws Exception {
+		return retirosLogica.getConsecutivoRetiros(sqlName);
 	}
 
 	@Override

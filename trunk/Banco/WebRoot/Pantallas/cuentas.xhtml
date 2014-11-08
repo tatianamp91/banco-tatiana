@@ -13,7 +13,7 @@
 		<ui:insert name="header">
 			<ui:include src="/Menu/menu.xhtml" />
 		</ui:insert>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="msg" />
 			<p:panel id="panelCuentas" header="Cuentas"
 				style="height:180px;width:1320px">
@@ -64,7 +64,8 @@
 				<div align="center">
 					<p:dataTable id="tablaCuentas" value="#{cuentasVista.cuentas}"
 						var="cuenta" paginator="true" rows="5"
-						style="height:350px;width:800px">
+						style="height:270px;width:800px">
+						<p:growl id="msg1" />
 						<p:column headerText="Número Cuenta">
 							<p:outputLabel value="#{cuenta.cueNumero}" />
 						</p:column>
@@ -74,13 +75,13 @@
 						<p:column headerText="Saldo">
 							<p:outputLabel value="#{cuenta.cueSaldo}" />
 						</p:column>
-						<p:column headerText="Acitva">
+						<p:column headerText="Estado">
 							<p:outputLabel value="#{cuenta.cueActiva}" />
 						</p:column>
 						<p:column headerText="Cambiar Estado">
 							<p:commandButton value="/"
 								action="#{cuentasVista.accion_cambiar_estado}"
-								update="tablaCuentas" >
+								update="tablaCuentas, :form:msg" >
 								<f:setPropertyActionListener
 										value="#{cuenta.cueNumero}"
 										target="#{cuentasVista.numCuenta}" />

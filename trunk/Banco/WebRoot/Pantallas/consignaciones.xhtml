@@ -16,9 +16,9 @@
 		<h:form>
 			<p:growl id="msg" />
 			<p:panel id="panelConsignaciones" header="Consignaciones"
-				style="height:280px;width:1320px">
+				style="height:200px;width:1320px">
 				<div align="center">
-					<p:panelGrid columns="4">
+					<p:panelGrid columns="6">
 						<p:outputLabel value="*Id cliente:" />
 						<p:inputText id="txtIdCliente" binding="#{consignacionesVista.txtIdCliente}">
 							<p:ajax listener="#{consignacionesVista.consultarTxtIdCliente}"
@@ -46,7 +46,9 @@
 						<p:outputLabel value="*Cuentas:" />
 						<p:selectOneMenu id="cuentas" value="#{consignacionesVista.numCuenta}">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
-							<f:selectItems value="#{consignacionesVista.cuentas.cueNumero}" />
+							<f:selectItems value="#{consignacionesVista.numerosCuentas}" />
+							<p:ajax listener="#{consignacionesVista.consultarConsignaciones}"
+								update="panelTablaConsignaciones,msg" />
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="*Valor:" />
@@ -59,8 +61,8 @@
 			</p:panel>
 			<p:panel id="panelBotonesConsignaciones" style="height:50px;width:1320px">
 				<div align="center">
-					<p:commandButton id="btnCrear" value="Crear"
-						action="#{consignacionesVista.accion_crear}"
+					<p:commandButton id="btnCrear" value="Consignar"
+						action="#{consignacionesVista.accion_consignar}"
 						binding="#{consignacionesVista.btnCrear}"
 						update="panelConsignaciones,panelBotonesConsignaciones,panelTablaConsignaciones,msg" />
 					<p:commandButton id="btnLimpiar" value="Limpiar"
@@ -69,26 +71,26 @@
 						update="panelConsignaciones,panelBotonesConsignaciones,panelTablaConsignaciones,msg" />
 				</div>
 			</p:panel>
-			<p:panel id="panelTablaConsignaciones" style="height:350px;width:1320px">
+			<p:panel id="panelTablaConsignaciones" style="height:270px;width:1320px">
 				<div align="center">
 					<p:dataTable id="tablaConsignaciones" value="#{consignacionesVista.consignaciones}"
-						var="consignacion" paginator="true" rows="5">
-						<p:column headerText="Id">
+						var="consignacion" paginator="true" rows="5" style="height:350px;width:1200px">
+						<p:column headerText="Id" style="width:20px">
 							<p:outputLabel value="#{consignacion.id.conCodigo}" />
 						</p:column>
-						<p:column headerText="Cuenta">
+						<p:column headerText="Cuenta" style="width:100px">
 							<p:outputLabel value="#{consignacion.id.cuentas.cueNumero}" />
 						</p:column>
-						<p:column headerText="Usuario">
+						<p:column headerText="Usuario" style="width:100px">
 							<p:outputLabel value="#{consignacion.usuarios.usuNombre}" />
 						</p:column>
-						<p:column headerText="Valor">
+						<p:column headerText="Valor" style="width:100px">
 							<p:outputLabel value="#{consignacion.conValor}" />
 						</p:column>
-						<p:column headerText="Fecha">
+						<p:column headerText="Fecha" style="width:100px">
 							<p:outputLabel value="#{consignacion.conFecha}" />
 						</p:column>
-						<p:column headerText="Descripción">
+						<p:column headerText="Descripción" style="width:100px">
 							<p:outputLabel value="#{consignacion.conDescripcion}" />
 						</p:column>
 					</p:dataTable>

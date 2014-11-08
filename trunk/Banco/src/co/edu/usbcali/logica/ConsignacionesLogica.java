@@ -223,11 +223,22 @@ public class ConsignacionesLogica implements IConsignacionesLogica {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public  Long getConsecutivo(String sqlName) throws Exception {
+	public List<Consignaciones> consultarConsignacionesCuenta(Cuentas cuenta) throws Exception {
 		try{
-			return consignacionesDAO.getConsecutivo(sqlName);
+			return consignacionesDAO.consultarConsignacionesCuenta(cuenta);
 		}catch(Exception e){
 			throw new Exception(e);
 		}
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public  Long getConsecutivoConsignaciones(String sqlName) throws Exception {
+		try{
+			return consignacionesDAO.getConsecutivoConsignaciones(sqlName);
+		}catch(Exception e){
+			throw new Exception(e);
+		}
+	}
+	
 }
