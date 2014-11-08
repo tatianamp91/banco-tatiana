@@ -2,18 +2,13 @@ package co.edu.usbcali.vista;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
-
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.TiposDocumentos;
@@ -39,8 +34,7 @@ public class ClientesVista {
 	private CommandButton btnModificar;
 	private CommandButton btnEliminar;
 	private CommandButton btnLimpiar;
-	
-	
+		
 	public void consultarTxtId() throws Exception{
 		try{		
 			Long id = Long.parseLong(txtId.getValue().toString());
@@ -121,11 +115,11 @@ public class ClientesVista {
 				cliente.setCliMail(txtEmail.getValue().toString());
 				
 				delegadoDeNegocio.modificarCliente(cliente);
-				FacesContext.getCurrentInstance().addMessage("", new FacesMessage("El cliente se modificó correctamente"));
+				Utilidades.addInfoMessage(("El cliente se modificó correctamente"));
 				accion_limpiar();	
 			}
 		}catch(Exception e){
-			FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
+			Utilidades.addErrorMessage(e.getMessage());
 		}
 	}
 	
@@ -135,11 +129,11 @@ public class ClientesVista {
 			Clientes cliente = delegadoDeNegocio.consultarCliente(id);
 			if(cliente != null){		
 				delegadoDeNegocio.eliminarCliente(cliente);
-				FacesContext.getCurrentInstance().addMessage("", new FacesMessage("El cliente se eliminó correctamente"));
+				Utilidades.addInfoMessage(("El cliente se eliminó correctamente"));
 				accion_limpiar();	
 			}
 		}catch(Exception e){
-			FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage()));
+			Utilidades.addErrorMessage(e.getMessage());
 		}
 	}
 	
@@ -149,7 +143,7 @@ public class ClientesVista {
 				clientes = delegadoDeNegocio.consultarClientes();
 			}
 		}catch(Exception e){
-			throw new Exception(e);
+			Utilidades.addErrorMessage(e.getMessage());
 		}
 		return clientes;
 	}
@@ -181,7 +175,7 @@ public class ClientesVista {
 				}
 			}
 		}catch(Exception e){
-			throw new Exception(e);
+			Utilidades.addErrorMessage(e.getMessage());
 		}
 		return tiposDocumentos;
 	}

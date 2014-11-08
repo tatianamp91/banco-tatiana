@@ -2,6 +2,7 @@ package co.edu.usbcali.logica;
 
 import java.util.List;
 
+import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Cuentas;
 
 public interface ICuentasLogica {
@@ -14,8 +15,10 @@ public interface ICuentasLogica {
 	
 	public void eliminarCuenta (Cuentas cuenta) throws Exception;
 	
-	public Cuentas consultarCuenta (String  cueNumero) throws Exception;
+	public Cuentas consultarCuenta (Long  cueNumero) throws Exception;
 
 	public List<Cuentas> consultarCuentas () throws Exception;
+	
+	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception;
 
 }

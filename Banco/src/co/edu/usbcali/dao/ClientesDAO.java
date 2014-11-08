@@ -52,7 +52,7 @@ public class ClientesDAO implements IClientesDAO {
 	}
 	
 	@Override
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception {
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception {
 		String hql = "select cli from Clientes cli, Cuentas cue where cli.cliId = cue.clientes.cliId "
 				+ "and cue.cueNumero = '"+numCuenta+"' and cli.cliId = "+idCliente+" "
 				+ "and cue.cueClave = '"+clave+"'";

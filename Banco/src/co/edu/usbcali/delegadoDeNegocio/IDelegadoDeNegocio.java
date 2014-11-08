@@ -24,7 +24,7 @@ public interface IDelegadoDeNegocio {
 
 	public List<Clientes> consultarClientes () throws Exception;
 	
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception;
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception;
 	
 	public void crearConsignacion (Consignaciones consignacion) throws Exception;
 	
@@ -46,9 +46,11 @@ public interface IDelegadoDeNegocio {
 	
 	public void eliminarCuenta (Cuentas cuenta) throws Exception;
 	
-	public Cuentas consultarCuenta (String  cueNumero) throws Exception;
+	public Cuentas consultarCuenta (Long  cueNumero) throws Exception;
 
 	public List<Cuentas> consultarCuentas () throws Exception;
+	
+	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception;
 	
 	public void crearRetiro (Retiros retiro) throws Exception;
 	

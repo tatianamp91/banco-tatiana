@@ -29,9 +29,10 @@ public class CuentasLogica implements ICuentasLogica {
 			if(cuenta == null){
 				throw new Exception("La cuenta es nula");
 			}
+			/*
 			if(cuenta.getCueNumero() == null || cuenta.getCueNumero().trim().equals("")){
 				throw new Exception("El numero de la cuenta no puede ser vacio");
-			}
+			}*/
 			if(cuenta.getClientes() == null){
 				throw new Exception("El cliente de la cuenta no puede ser vacio");
 			}
@@ -52,11 +53,11 @@ public class CuentasLogica implements ICuentasLogica {
 			if(cuenta.getCueClave() == null || cuenta.getCueClave().trim().equals("")){
 				throw new Exception("La clave de la cuenta no puede ser vacia");
 			}
-			*/
+
 			Cuentas entidad = cuentasDAO.consultarCuenta(cuenta.getCueNumero());
 			if(entidad != null){
 				throw new Exception("La cuenta ya existe");
-			}
+			}*/
 			
 			cuenta.setCueSaldo(0D);
 			cuenta.setCueActiva("N");
@@ -92,7 +93,7 @@ public class CuentasLogica implements ICuentasLogica {
 			if(cuenta == null){
 				throw new Exception("La cuenta es nula");
 			}
-			if(cuenta.getCueNumero() == null || cuenta.getCueNumero().trim().equals("")){
+			if(cuenta.getCueNumero() == null){
 				throw new Exception("El numero de la cuenta no puede ser vacio");
 			}
 			if(cuenta.getClientes() == null){
@@ -137,7 +138,7 @@ public class CuentasLogica implements ICuentasLogica {
 			if(cuenta == null){
 				throw new Exception("La cuenta es nula");
 			}
-			if(cuenta.getCueNumero() == null || cuenta.getCueNumero().trim().equals("")){
+			if(cuenta.getCueNumero() == null){
 				throw new Exception("El numero de la cuenta no puede ser vacio");
 			}
 			List<Cuentas> cuentas = cuentasDAO.consultarCuentasRetiros(cuenta.getCueNumero());
@@ -161,9 +162,9 @@ public class CuentasLogica implements ICuentasLogica {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Cuentas consultarCuenta(String cueNumero) throws Exception {
+	public Cuentas consultarCuenta(Long cueNumero) throws Exception {
 		try{
-			if(cueNumero == null || cueNumero.trim().equals("")){
+			if(cueNumero == null){
 				throw new Exception("El numero de la cuenta no puede ser vacio");
 			}
 			return cuentasDAO.consultarCuenta(cueNumero);
@@ -177,6 +178,16 @@ public class CuentasLogica implements ICuentasLogica {
 	public List<Cuentas> consultarCuentas() throws Exception {
 		try{
 			return cuentasDAO.consultarCuentas();
+		}catch(Exception e){
+			throw new Exception(e);
+		}
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception {
+		try{
+			return cuentasDAO.consultarCuentasCliente(cliente);
 		}catch(Exception e){
 			throw new Exception(e);
 		}

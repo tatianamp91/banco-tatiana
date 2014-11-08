@@ -18,5 +18,5 @@ public interface IClientesDAO {
 	
 	public List<Clientes> consultarClientesCuentas(Long cliId) throws Exception;
 	
-	public Clientes consultarClientesCuenta(String numCuenta, Long idCliente, String clave) throws Exception;
+	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception;
 }

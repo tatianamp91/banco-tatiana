@@ -6,13 +6,13 @@
 -->
 <hibernate-mapping>
     <class name="co.edu.usbcali.modelo.Cuentas" table="CUENTAS">
-        <id name="cueNumero" type="java.lang.String">
-            <column name="CUE_NUMERO" length="30" />
+        <id name="cueNumero" type="java.lang.Long">
+            <column name="CUE_NUMERO" precision="10" scale="0"/>
 	            <generator class="sequence">
-	            	<param name="secuence">SEQ_CUENTAS</param>
+	            	<param name="sequence">SEQ_CUENTAS</param>
 	            </generator>
         </id>
-        <many-to-one name="clientes" class="co.edu.usbcali.modelo.Clientes" fetch="select">
+        <many-to-one name="clientes" class="co.edu.usbcali.modelo.Clientes" fetch="select" lazy="false">
             <column name="CLI_ID" precision="10" scale="0" not-null="true" />
         </many-to-one>
         <property name="cueSaldo" type="java.lang.Double">
