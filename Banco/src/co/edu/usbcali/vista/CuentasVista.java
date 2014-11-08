@@ -1,11 +1,14 @@
 package co.edu.usbcali.vista;
 
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Cuentas;
@@ -85,12 +88,21 @@ public class CuentasVista {
 				if(cuenta.getCueActiva().trim().equals("S")){
 					cuenta.setCueActiva("N");
 				}else{
-					cuenta.setCueActiva("S");
+					if(cuenta.getCueSaldo() > 0){
+						cuenta.setCueActiva("S");
+					}else{
+						throw new Exception("Debe realizar una consignación");
+					}
 				}
 				
 				delegadoDeNegocio.modificarCuenta(cuenta);
 				Utilidades.addInfoMessage(("Se cambio el estado de la cuenta correctamente"));
-				accion_limpiar();	
+				if(cliente != null){
+					cuentas = delegadoDeNegocio.consultarCuentasCliente(cliente);
+				}else{
+					cuentas = null;
+				}				
+				estado();
 			}
 		}catch(Exception e){
 			Utilidades.addErrorMessage((e.getMessage()));

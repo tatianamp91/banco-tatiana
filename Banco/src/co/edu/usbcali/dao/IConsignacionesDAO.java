@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.usbcali.modelo.Consignaciones;
 import co.edu.usbcali.modelo.ConsignacionesId;
+import co.edu.usbcali.modelo.Cuentas;
 
 public interface IConsignacionesDAO {
 	
@@ -17,6 +18,8 @@ public interface IConsignacionesDAO {
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
 	
-	public  Long getConsecutivo(String sqlName) throws Exception;
+	public List<Consignaciones> consultarConsignacionesCuenta(Cuentas cuenta) throws Exception;
+	
+	public  Long getConsecutivoConsignaciones(String sqlName) throws Exception;
 
 }

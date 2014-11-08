@@ -81,15 +81,14 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			consignacionesDAO.crearConsignacion(consignacion);
 			if(consignacion.getId().getCuentas().getCueActiva().trim().equals("N")){
 				cuenta.setCueActiva("S");
-				
-				Double saldoInicial = cuenta.getCueSaldo();
-				Double saldoConsignar = consignacion.getConValor();
-				Double saldoFinal = saldoInicial + saldoConsignar;
-				
-				cuenta.setCueSaldo(saldoFinal);
-				
-				cuentasLogica.modificarCuenta(cuenta);
 			}
+			Double saldoInicial = cuenta.getCueSaldo();
+			Double saldoConsignar = consignacion.getConValor();
+			Double saldoFinal = saldoInicial + saldoConsignar;
+			
+			cuenta.setCueSaldo(saldoFinal);
+			
+			cuentasLogica.modificarCuenta(cuenta);
 		}catch(Exception e){
 			throw new Exception(e);
 		}

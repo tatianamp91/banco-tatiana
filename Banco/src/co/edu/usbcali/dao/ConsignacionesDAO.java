@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import co.edu.usbcali.modelo.Consignaciones;
 import co.edu.usbcali.modelo.ConsignacionesId;
+import co.edu.usbcali.modelo.Cuentas;
 
 @Scope("singleton")
 @Repository
@@ -47,7 +48,14 @@ public class ConsignacionesDAO implements IConsignacionesDAO {
 	}
 	
 	@Override
-	public synchronized Long getConsecutivo(String sqlName) {
+	public List<Consignaciones> consultarConsignacionesCuenta(Cuentas cuenta) throws Exception {
+		String hql = "select con from Consignaciones con, Cuentas cue "
+				+ "where cue.cueNumero = con.id.cuentas.cueNumero and cue.cueNumero ="+cuenta.getCueNumero();
+		return (List<Consignaciones>) sessionFactory.getCurrentSession().createQuery(hql).list();
+	}
+	
+	@Override
+	public synchronized Long getConsecutivoConsignaciones(String sqlName) {
 
 		Long consecutivo = null;
 		List qlist = null;

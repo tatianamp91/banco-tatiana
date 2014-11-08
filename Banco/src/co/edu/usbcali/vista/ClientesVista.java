@@ -94,6 +94,7 @@ public class ClientesVista {
 			
 			delegadoDeNegocio.crearCliente(cliente);
 			Utilidades.addInfoMessage(("El cliente se creó correctamente"));
+			Utilidades.addInfoMessage(("Se asigno una cuenta al cliente"));
 			accion_limpiar();		
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());

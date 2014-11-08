@@ -16,18 +16,20 @@ import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Consignaciones;
 import co.edu.usbcali.modelo.ConsignacionesId;
 import co.edu.usbcali.modelo.Cuentas;
+import co.edu.usbcali.modelo.Retiros;
+import co.edu.usbcali.modelo.RetirosId;
 import co.edu.usbcali.modelo.Usuarios;
 import co.edu.usbcali.utilidades.Utilidades;
 
 
 @ManagedBean
 @SessionScoped
-public class ConsignacionesVista {
+public class RetirosVista {
 	
 	@ManagedProperty(value = "#{delegadoDeNegocio}")
 	private IDelegadoDeNegocio delegadoDeNegocio;
 	
-	private List<Consignaciones> consignaciones;
+	private List<Retiros> retiros;
 	private InputText txtIdCliente;
 	private List<Cuentas> cuentas;
 	private List<Long> numerosCuentas;
@@ -53,7 +55,7 @@ public class ConsignacionesVista {
 		txtValor.setValue("");
 		txtDescripcion.setValue("");
 		btnCrear.setDisabled(true);
-		consignaciones = null;
+		retiros = null;
 		cuentas = null;
 		numCuenta = null;
 	}
@@ -87,38 +89,38 @@ public class ConsignacionesVista {
 		}
 	}
 	
-	public void consultarConsignaciones() {
+	public void consultarRetiros() {
 		try{
 			Cuentas cuenta = delegadoDeNegocio.consultarCuenta(numCuenta);
 			if(cuenta != null){
-				consignaciones = null;
-				consignaciones = delegadoDeNegocio.consultarConsignacionesCuenta(cuenta);
+				retiros = null;
+				retiros = delegadoDeNegocio.consultarRetirosCuenta(cuenta);
 			}
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}
 	}
 		
-	public void accion_consignar() throws Exception {
-		try{			
-			Consignaciones consignacion = new Consignaciones();
+	public void accion_retirar() throws Exception {
+		try{	
+			Retiros retiro = new Retiros();
 			
-			ConsignacionesId id = new ConsignacionesId();
-			Long idConsignacion = delegadoDeNegocio.getConsecutivoConsignaciones("SEQ_CONSIGNACIONES");
+			RetirosId id = new RetirosId();
+			Long idRetiro = delegadoDeNegocio.getConsecutivoRetiros("SEQ_RETIROS");
 			Cuentas cuen = delegadoDeNegocio.consultarCuenta(numCuenta);
-			id.setConCodigo(idConsignacion);
+			id.setRetCodigo(idRetiro);
 			id.setCuentas(cuen);	
-			consignacion.setId(id);
+			retiro.setId(id);
 			
 			usuCedula = 10L;//cambiar a usuario en sesión
 			Usuarios usuario = delegadoDeNegocio.consultarUsuario(usuCedula);
-			consignacion.setUsuarios(usuario);
-			consignacion.setConValor(Double.parseDouble(txtValor.getValue().toString()));
-			consignacion.setConDescripcion(txtDescripcion.getValue().toString());
-			consignacion.setConFecha(new Date());
+			retiro.setUsuarios(usuario);
+			retiro.setRetValor(Double.parseDouble(txtValor.getValue().toString()));
+			retiro.setRetDescripcion(txtDescripcion.getValue().toString());
+			retiro.setRetFecha(new Date());
 			
-			delegadoDeNegocio.consignacion(consignacion);
-			Utilidades.addInfoMessage(("La consignación se realizo correctamente"));
+			delegadoDeNegocio.retiro(retiro);
+			Utilidades.addInfoMessage(("El retiro se realizo correctamente"));
 			accion_limpiar();		
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
@@ -133,19 +135,19 @@ public class ConsignacionesVista {
 		this.delegadoDeNegocio = delegadoDeNegocio;
 	}
 
-	public List<Consignaciones> getConsignaciones() {
+	public List<Retiros> getRetiros() {
 		try{
-			if(consignaciones == null){
-				consignaciones = delegadoDeNegocio.consultarConsignaciones();
+			if(retiros == null){
+				retiros = delegadoDeNegocio.consultarRetiros();
 			}
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}
-		return consignaciones;
+		return retiros;
 	}
 
-	public void setConsignaciones(List<Consignaciones> consignaciones) {
-		this.consignaciones = consignaciones;
+	public void setRetiros(List<Retiros> retiros) {
+		this.retiros = retiros;
 	}
 
 	public InputText getTxtIdCliente() {

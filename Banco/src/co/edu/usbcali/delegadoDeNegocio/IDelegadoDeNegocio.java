@@ -38,7 +38,9 @@ public interface IDelegadoDeNegocio {
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
 	
-	public  Long getConsecutivo(String sqlName) throws Exception;
+	public List<Consignaciones> consultarConsignacionesCuenta(Cuentas cuenta) throws Exception;
+	
+	public  Long getConsecutivoConsignaciones(String sqlName) throws Exception;
 	
 	public void crearCuenta (Cuentas cuenta) throws Exception;
 	
@@ -68,6 +70,10 @@ public interface IDelegadoDeNegocio {
 	public Retiros consultarRetiro (RetirosId  id) throws Exception;
 
 	public List<Retiros> consultarRetiros () throws Exception;
+	
+	public List<Retiros> consultarRetirosCuenta(Cuentas cuenta) throws Exception;
+	
+	public Long getConsecutivoRetiros(String sqlName) throws Exception;
 	
 	public void crearTipoDocumento (TiposDocumentos tipoDocumento) throws Exception;
 	

@@ -72,26 +72,26 @@
 						update="panelClientes,panelBotonesClientes,panelTablaClientes,msg" />
 				</div>
 			</p:panel>
-			<p:panel id="panelTablaClientes" style="height:350px;width:1320px">
+			<p:panel id="panelTablaClientes" style="height:270px;width:1320px">
 				<div align="center">
 					<p:dataTable id="tablaClientes" value="#{clientesVista.clientes}"
 						var="cliente" paginator="true" rows="5">
-						<p:column headerText="Id">
+						<p:column headerText="Id" style="width:20px">
 							<p:outputLabel value="#{cliente.cliId}" />
 						</p:column>
-						<p:column headerText="Tipo de documento">
+						<p:column headerText="Tipo de documento" style="width:100px">
 							<p:outputLabel value="#{cliente.tiposDocumentos.tdocNombre}" />
 						</p:column>
-						<p:column headerText="Nombre">
+						<p:column headerText="Nombre" style="width:100px">
 							<p:outputLabel value="#{cliente.cliNombre}" />
 						</p:column>
-						<p:column headerText="Dirección">
+						<p:column headerText="Dirección" style="width:100px">
 							<p:outputLabel value="#{cliente.cliDireccion}" />
 						</p:column>
-						<p:column headerText="Teléfono">
+						<p:column headerText="Teléfono" style="width:100px">
 							<p:outputLabel value="#{cliente.cliTelefono}" />
 						</p:column>
-						<p:column headerText="Email">
+						<p:column headerText="Email" style="width:100px">
 							<p:outputLabel value="#{cliente.cliMail}" />
 						</p:column>
 					</p:dataTable>

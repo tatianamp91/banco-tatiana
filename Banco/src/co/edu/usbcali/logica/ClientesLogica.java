@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.edu.usbcali.dao.IClientesDAO;
 import co.edu.usbcali.dao.ITiposDocumentosDAO;
 import co.edu.usbcali.modelo.Clientes;
+import co.edu.usbcali.modelo.Cuentas;
 import co.edu.usbcali.modelo.TiposDocumentos;
 
 @Scope("singleton")
@@ -22,7 +23,9 @@ public class ClientesLogica implements IClientesLogica {
 	@Autowired
 	private IClientesDAO clientesDAO;
 	@Autowired
-	private ITiposDocumentosDAO tiposDocumentosDAO;
+	private ITiposDocumentosLogica tiposDocumentosLogica;
+	@Autowired
+	private ICuentasLogica cuentasLogica;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -34,10 +37,15 @@ public class ClientesLogica implements IClientesLogica {
 			if(cliente.getCliId() == null){
 				throw new Exception("El id del cliente no puede ser vacio");
 			}
+			
+			String cliId = cliente.getCliId().toString();
+			if(cliId.length() < 8){
+				throw new Exception("El id del cliente debe tener minimo 8 caracteres");
+			}
 			if(cliente.getTiposDocumentos() == null){
 				throw new Exception("El tipo de documento de el cliente no puede ser vacio");
 			}
-			TiposDocumentos tipoDocumento = tiposDocumentosDAO.consultarTipoDocumento(cliente.getTiposDocumentos().getTdocCodigo());
+			TiposDocumentos tipoDocumento = tiposDocumentosLogica.consultarTipoDocumento(cliente.getTiposDocumentos().getTdocCodigo());
 			if(tipoDocumento == null){
 				throw new Exception("El tipo de documento no existe");
 			}
@@ -62,6 +70,10 @@ public class ClientesLogica implements IClientesLogica {
 			}
 			
 			clientesDAO.crearCliente(cliente);
+			
+			Cuentas cuenta = new Cuentas();
+			cuenta.setClientes(cliente);
+			cuentasLogica.crearCuenta(cuenta);
 		}catch(Exception e){
 			throw new Exception (e);
 		}
@@ -80,7 +92,7 @@ public class ClientesLogica implements IClientesLogica {
 			if(cliente.getTiposDocumentos() == null){
 				throw new Exception("El tipo de documento de el cliente no puede ser vacio");
 			}
-			TiposDocumentos tipoDocumento = tiposDocumentosDAO.consultarTipoDocumento(cliente.getTiposDocumentos().getTdocCodigo());
+			TiposDocumentos tipoDocumento = tiposDocumentosLogica.consultarTipoDocumento(cliente.getTiposDocumentos().getTdocCodigo());
 			if(tipoDocumento == null){
 				throw new Exception("El tipo de documento no existe");
 			}
