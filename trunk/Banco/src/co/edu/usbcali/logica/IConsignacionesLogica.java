@@ -18,5 +18,7 @@ public interface IConsignacionesLogica {
 	public Consignaciones consultarConsignacion (ConsignacionesId  id) throws Exception;
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
+	
+	public  Long getConsecutivo(String sqlName) throws Exception ;
 
 }

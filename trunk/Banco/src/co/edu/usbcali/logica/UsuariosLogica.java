@@ -48,7 +48,7 @@ public class UsuariosLogica implements IUsuariosLogica{
 			if(usuario.getUsuClave() == null || usuario.getUsuClave().trim().equals("")){
 				throw new Exception ("La clave del usuario no puede ser vacia");
 			}
-			Usuarios usu = consultarUsuariosLogin(usuario.getUsuLogin());
+			Usuarios usu = consultarUsuariosLogin(usuario);
 			if(usu != null){
 				throw new Exception ("Ya existe usuario con el mismo login");
 			}			
@@ -89,9 +89,11 @@ public class UsuariosLogica implements IUsuariosLogica{
 			if(usuario.getUsuClave() == null || usuario.getUsuClave().trim().equals("")){
 				throw new Exception ("La clave del usuario no puede ser vacia");
 			}
-			Usuarios usu = consultarUsuariosLogin(usuario.getUsuLogin());
+			Usuarios usu = consultarUsuariosLogin(usuario);
 			if(usu != null){
-				throw new Exception ("Ya existe usuario con el mismo login");
+				if(usuario.getUsuCedula() != usu.getUsuCedula()){
+					throw new Exception ("Ya existe usuario con el mismo login");
+				}
 			}
 			Usuarios entidad = usuariosDAO.consultarUsuario(usuario.getUsuCedula());
 			if(entidad == null){
@@ -163,12 +165,12 @@ public class UsuariosLogica implements IUsuariosLogica{
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Usuarios consultarUsuariosLogin(String usuLogin) throws Exception {
+	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception {
 		try{
-			if(usuLogin == null){
-				throw new Exception ("El login del usuario no puede ser vacio");
+			if(usuario == null){
+				throw new Exception ("El usuario es nulo");
 			}
-			return usuariosDAO.consultarUsuariosLogin(usuLogin);
+			return usuariosDAO.consultarUsuariosLogin(usuario);
 		}catch(Exception e){
 			throw new Exception (e);
 		}

@@ -14,7 +14,7 @@
                 <column name="CUE_NUMERO" precision="10" scale="0"/>
             </key-many-to-one>
         </composite-id>
-        <many-to-one name="usuarios" class="co.edu.usbcali.modelo.Usuarios" fetch="select">
+        <many-to-one name="usuarios" class="co.edu.usbcali.modelo.Usuarios" fetch="select" lazy="false">
             <column name="USU_CEDULA" precision="10" scale="0" />
         </many-to-one>
         <property name="conValor" type="java.lang.Double">
@@ -26,5 +26,9 @@
         <property name="conDescripcion" type="java.lang.String">
             <column name="CON_DESCRIPCION" length="50" not-null="true" />
         </property>
+        <sql-query name="SEQ_CONSIGNACIONES">
+	      	<return-scalar column="seq" type="java.lang.Long" />
+	        <![CDATA[SELECT SEQ_CONSIGNACIONES.nextval as seq FROM dual]]>
+  		</sql-query>
     </class>
 </hibernate-mapping>

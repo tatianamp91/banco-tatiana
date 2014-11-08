@@ -12,6 +12,7 @@ import co.edu.usbcali.logica.ICuentasLogica;
 import co.edu.usbcali.logica.IRetirosLogica;
 import co.edu.usbcali.logica.ITiposDocumentosLogica;
 import co.edu.usbcali.logica.ITiposUsuariosLogica;
+import co.edu.usbcali.logica.ITransaccionesLogica;
 import co.edu.usbcali.logica.IUsuariosLogica;
 import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Consignaciones;
@@ -41,6 +42,8 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	private ITiposUsuariosLogica tiposUsuariosLogica;
 	@Autowired
 	private IUsuariosLogica usuariosLogica;
+	@Autowired
+	private ITransaccionesLogica transaccionesLogica;
 
 	@Override
 	public void crearCliente(Clientes cliente) throws Exception {
@@ -100,6 +103,11 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	@Override
 	public List<Consignaciones> consultarConsignaciones() throws Exception {
 		return consignacionesLogica.consultarConsignaciones();
+	}
+	
+	@Override
+	public  Long getConsecutivo(String sqlName) throws Exception {
+		return consignacionesLogica.getConsecutivo(sqlName);
 	}
 
 	@Override
@@ -246,5 +254,21 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	@Override
 	public List<Usuarios> consultarUsuarios() throws Exception {
 		return usuariosLogica.consultarUsuarios();
+	}
+
+	@Override
+	public void consignacion(Consignaciones consignacion) throws Exception {
+		transaccionesLogica.consignacion(consignacion);		
+	}
+
+	@Override
+	public void retiro(Retiros retiro) throws Exception {
+		transaccionesLogica.retiro(retiro);		
+	}
+
+	@Override
+	public void translado(Usuarios usuario, Double valorTranslado,
+			Cuentas cuentaOrigen, Cuentas cuentaDestino) throws Exception {
+		transaccionesLogica.translado(usuario, valorTranslado, cuentaOrigen, cuentaDestino);		
 	}
 }

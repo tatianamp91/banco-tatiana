@@ -10,7 +10,7 @@
             <column name="USU_CEDULA" precision="10" scale="0" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="tiposUsuarios" class="co.edu.usbcali.modelo.TiposUsuarios" fetch="select">
+        <many-to-one name="tiposUsuarios" class="co.edu.usbcali.modelo.TiposUsuarios" fetch="select" lazy="false">
             <column name="TUSU_CODIGO" precision="10" scale="0" />
         </many-to-one>
         <property name="usuNombre" type="java.lang.String">

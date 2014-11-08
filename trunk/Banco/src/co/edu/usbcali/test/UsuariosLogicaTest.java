@@ -116,7 +116,7 @@ public class UsuariosLogicaTest {
 			throw new Exception(e);
 		}
 	}
-	*/
+	
 	@Test
 	public void consultarUsuariosLogin() throws Exception {
 		try{
@@ -132,5 +132,5 @@ public class UsuariosLogicaTest {
 		}catch(Exception e){
 			throw new Exception(e);
 		}
-	}
+	}*/
 }

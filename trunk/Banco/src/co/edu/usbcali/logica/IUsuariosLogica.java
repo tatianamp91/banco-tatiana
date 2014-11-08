@@ -16,6 +16,6 @@ public interface IUsuariosLogica {
 
 	public List<Usuarios> consultarUsuarios () throws Exception;
 	
-	public Usuarios consultarUsuariosLogin(String usuLogin) throws Exception;
+	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception;
 
 }
