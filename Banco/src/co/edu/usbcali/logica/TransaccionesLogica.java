@@ -193,20 +193,28 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			}
 			
 			Retiros retiro = new Retiros();
+			
 			RetirosId idRetiro = new RetirosId();
+			Long idRet = retirosDAO.getConsecutivoRetiros("SEQ_RETIROS");
+			idRetiro.setRetCodigo(idRet);
 			idRetiro.setCuentas(cuentaOri);
+			
 			retiro.setId(idRetiro);
-			retiro.setRetValor(valorTranslado);
+			retiro.setRetValor(valorTranslado+1000);
 			retiro.setRetFecha(new Date());
-			retiro.setRetDescripcion("Translado");
+			retiro.setRetDescripcion("Translado  + Costo Translado");
 			Usuarios usu = usuariosLogica.consultarUsuario(usuario.getUsuCedula());
 			retiro.setUsuarios(usu);
 			
 			retiro(retiro);
 			
 			Consignaciones consignacion = new Consignaciones();
+			
 			ConsignacionesId idConsignacion = new ConsignacionesId();
+			Long idConsig = consignacionesDAO.getConsecutivoConsignaciones("SEQ_CONSIGNACIONES");
+			idConsignacion.setConCodigo(idConsig);
 			idConsignacion.setCuentas(cuentaDes);
+			
 			consignacion.setId(idConsignacion);
 			consignacion.setConValor(valorTranslado);
 			consignacion.setConFecha(new Date());
@@ -215,16 +223,6 @@ public class TransaccionesLogica implements ITransaccionesLogica {
 			
 			consignacion(consignacion);	
 			
-			Retiros retir = new Retiros();
-			RetirosId idRetir = new RetirosId();
-			idRetiro.setCuentas(cuentaOri);
-			retir.setId(idRetir);
-			retir.setRetValor(1000D);
-			retir.setRetFecha(new Date());
-			retir.setRetDescripcion("Cobro Translado");
-			retiro.setUsuarios(usu);
-			
-			retiro(retiro);
 		}catch(Exception e){
 			throw new Exception(e);
 		}

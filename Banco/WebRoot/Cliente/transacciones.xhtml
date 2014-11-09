@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>Transacciones</title>
+	</h:head>
+	<h:body>
+		<ui:insert name="header">
+			<ui:include src="/Menu/menuCliente.xhtml" />
+		</ui:insert>
+		<h:form>
+			<p:growl id="msg" />
+			<p:panel id="panelTransacciones" header="Transacciones"
+				style="height:100px;width:1320px">
+
+				<p:panelGrid columns="7">
+					<p:outputLabel value="*Cuenta:" />
+					<p:selectOneMenu id="cuentas"
+						value="#{transaccionesVista.numCuenta}">
+						<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+						<f:selectItems value="#{transaccionesVista.numerosCuentas}" />
+						<p:ajax listener="#{transaccionesVista.consultarTransacciones}"
+							update="panelTablaConsignaciones,panelTablaRetiros,msg,txtSaldo" />
+					</p:selectOneMenu>
+
+					<p:outputLabel
+						value="-------------------------------------------------------------" />
+
+					<p:outputLabel value="Saldo:" />
+					<p:inputText id="txtSaldo" value="#{transaccionesVista.txtSaldo}"
+						disabled="true" />
+
+					<p:outputLabel value="Usuario:" />
+					<p:inputText id="txtNombre" value="#{transaccionesVista.txtNombre}"
+						disabled="true" />
+				</p:panelGrid>
+			</p:panel>
+			<p:panel id="panelTablaConsignaciones"
+				style="height:320px;width:1320px">
+				<div align="center">
+					<p:outputLabel value="Consignaciones" />
+					<p:dataTable id="tablaConsignaciones"
+						value="#{transaccionesVista.consignaciones}" var="consignacion"
+						paginator="true" rows="5" style="height:350px;width:1200px">
+						<p:column headerText="Número de Consignción" style="width:30px">
+							<p:outputLabel value="#{consignacion.id.conCodigo}" />
+						</p:column>
+						<p:column headerText="Cuenta" style="width:50px">
+							<p:outputLabel value="#{consignacion.id.cuentas.cueNumero}" />
+						</p:column>
+						<p:column headerText="Valor" style="width:100px">
+							<p:outputLabel value="#{consignacion.conValor}" />
+						</p:column>
+						<p:column headerText="Fecha" style="width:100px">
+							<p:outputLabel value="#{consignacion.conFecha}" />
+						</p:column>
+						<p:column headerText="Descripción" style="width:100px">
+							<p:outputLabel value="#{consignacion.conDescripcion}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+				</p:panel>
+				<p:panel id="panelTablaRetiros" style="height:320px;width:1320px">
+					<div align="center">
+						<p:outputLabel value="Retiros" />
+						<p:dataTable id="tablaRetiros"
+							value="#{transaccionesVista.retiros}" var="retiro"
+							paginator="true" rows="5" style="height:350px;width:1200px">
+							<p:column headerText="Número de Retiro" style="width:30px">
+								<p:outputLabel value="#{retiro.id.retCodigo}" />
+							</p:column>
+							<p:column headerText="Cuenta" style="width:50px">
+								<p:outputLabel value="#{retiro.id.cuentas.cueNumero}" />
+							</p:column>
+							<p:column headerText="Valor" style="width:100px">
+								<p:outputLabel value="#{retiro.retValor}" />
+							</p:column>
+							<p:column headerText="Fecha" style="width:100px">
+								<p:outputLabel value="#{retiro.retFecha}" />
+							</p:column>
+							<p:column headerText="Descripción" style="width:100px">
+								<p:outputLabel value="#{retiro.retDescripcion}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<p:megaMenu style="height:30px;width:1305px">
+		<p:submenu label="Gestión" style="width:250px">
+			<p:column style="width:250px">
+				<p:submenu style="width:240px">
+					<p:menuitem value="Clientes" style="width:240px"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/Asesor/clientes.xhtml" />
+				</p:submenu>
+				<p:submenu style="width:240px">
+					<p:menuitem value="Cuentas" style="width:240px"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/Asesor/cuentas.xhtml" />
+				</p:submenu>
+			</p:column>
+		</p:submenu>
+	</p:megaMenu>
+</h:body>
+</html>
