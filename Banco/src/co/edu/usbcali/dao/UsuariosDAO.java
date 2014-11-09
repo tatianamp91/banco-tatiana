@@ -61,7 +61,14 @@ public class UsuariosDAO implements IUsuariosDAO{
 	
 	@Override
 	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception {
-		String hql = "select usu from Usuarios usu where usuLogin ='"+usuario.getUsuLogin()+"'";
+		String hql = "select usu from Usuarios usu where usu.usuLogin ='"+usuario.getUsuLogin()+"'";
+		return (Usuarios) sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+	}
+	
+	@Override
+	public Usuarios consultarUsuariosLoginClave(String usuario, String clave) throws Exception {
+		String hql = "select usu from Usuarios usu where usu.usuLogin ='"+usuario+"' "
+				+ "and usu.usuClave = '"+clave+"'";
 		return (Usuarios) sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
 	}
 	

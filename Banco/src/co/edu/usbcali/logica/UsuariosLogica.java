@@ -175,4 +175,20 @@ public class UsuariosLogica implements IUsuariosLogica{
 			throw new Exception (e);
 		}
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Usuarios consultarUsuariosLoginClave(String usuario, String clave) throws Exception {
+		try{
+			if(usuario == null){
+				throw new Exception ("El usuario es nulo");
+			}
+			if(clave == null){
+				throw new Exception ("La clave es nula");
+			}
+			return usuariosDAO.consultarUsuariosLoginClave(usuario, clave);
+		}catch(Exception e){
+			throw new Exception (e);
+		}
+	}
 }
