@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>ClaveCuentas</title>
+	</h:head>
+	<h:body>
+		<ui:insert name="header">
+			<ui:include src="/Menu/menuCliente.xhtml" />
+		</ui:insert>
+		<h:form id="form">
+			<p:growl id="msg" />
+			<p:panel id="panelTablaClaveCuentas"
+				style="height:280px;width:1320px">
+				<div align="center">
+					<p:dataTable id="tablaClaveCuentas"
+						value="#{claveCuentasVista.cuentas}" var="cuenta" paginator="true"
+						rows="3" style="height:270px;width:800px">
+						<p:growl id="msg1" />
+						<p:column headerText="Número Cuenta">
+							<p:outputLabel value="#{cuenta.cueNumero}" />
+						</p:column>
+						<p:column headerText="Saldo">
+							<p:outputLabel value="#{cuenta.cueSaldo}" />
+						</p:column>
+						<p:column headerText="Estado">
+							<p:outputLabel value="#{cuenta.cueActiva}" />
+						</p:column>
+						<p:column headerText="Cambiar Clave">
+							<p:commandButton value="/"
+								action="#{claveCuentasVista.showDialog}"
+								update=":form, :form:msg">
+								<f:setPropertyActionListener value="#{cuenta.cueNumero}"
+									target="#{claveCuentasVista.numCuenta}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+			<p:panel id="dialogClaveCuentas" header="Cambiar Clave de Cuenta"
+				style="height:220px;width:1320px"
+				rendered="#{claveCuentasVista.showDialog}">
+				<div align="center">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Número de Cuenta" />
+						<p:inputText id="txtNumCue" value="#{claveCuentasVista.numCuenta}"
+							disabled="true" />
+
+						<p:outputLabel value="*Clave actual:" />
+						<p:password id="pswClave" value="#{claveCuentasVista.pswClaveActual}" />
+
+						<p:outputLabel value="*Nueva clave:" />
+						<p:password id="pswClave1" value="#{claveCuentasVista.pswClave}"
+							match="pswClave2" validatorMessage="Contraseña no Coincide" />
+
+						<p:outputLabel value="*Confirme clave:" />
+						<p:password id="pswClave2" value="#{claveCuentasVista.pswClave}" />
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			<p:panel id="panelBotonesCuentas" style="height:50px;width:1320px"
+				rendered="#{claveCuentasVista.showDialog}">
+				<div align="center">
+					<p:commandButton id="btnModificar" value="Gurdar"
+						action="#{claveCuentasVista.accion_cambiar_clave}"
+						binding="#{claveCuentasVista.btnModificar}" update=":form" />
+				</div>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

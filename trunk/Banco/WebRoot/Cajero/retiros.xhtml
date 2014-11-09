@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>Retiros</title>
+	</h:head>
+	<h:body>
+		<ui:insert name="header">
+			<ui:include src="/Menu/menuCajero.xhtml" />
+		</ui:insert>
+		<h:form>
+			<p:growl id="msg" />
+			<p:panel id="panelRetiros" header="Retiros"
+				style="height:200px;width:1320px">
+				<div align="center">
+					<p:panelGrid columns="6">
+						<p:outputLabel value="*Id cliente:" />
+						<p:inputText id="txtIdCliente" binding="#{retirosVista.txtIdCliente}">
+							<p:ajax listener="#{retirosVista.consultarTxtIdCliente}"
+								update="panelRetiros,panelBotonesRetiros,msg" />
+						</p:inputText>
+
+						<p:outputLabel value="Tipo de Documento:" />
+						<p:inputText id="tipoDocumento"
+							binding="#{retirosVista.txtTipoDoc}" disabled="true"/>
+
+						<p:outputLabel value="Nombre:" />
+						<p:inputText id="txtNombre" binding="#{retirosVista.txtNombre}" disabled="true"/>
+
+						<p:outputLabel value="Dirección:" />
+						<p:inputText id="txtDireccion"
+							binding="#{retirosVista.txtDireccion}" disabled="true"/>
+
+						<p:outputLabel value="Teléfono:" />
+						<p:inputText id="txtTelefono"
+							binding="#{retirosVista.txtTelefono}" disabled="true"/>
+
+						<p:outputLabel value="Email:" />
+						<p:inputText id="txtEmail" binding="#{retirosVista.txtEmail}" disabled="true"/>
+						
+						<p:outputLabel value="*Cuentas:" />
+						<p:selectOneMenu id="cuentas" value="#{retirosVista.numCuenta}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
+							<f:selectItems value="#{retirosVista.numerosCuentas}" />
+							<p:ajax listener="#{retirosVista.consultarRetiros}"
+								update="panelTablaRetiros,msg" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="*Valor:" />
+						<p:inputText id="txtValor" binding="#{retirosVista.txtValor}"/>
+						
+						<p:outputLabel value="*Descripción:" />
+						<p:inputText id="txtDescripcion" binding="#{retirosVista.txtDescripcion}"/>
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			<p:panel id="panelBotonesRetiros" style="height:50px;width:1320px">
+				<div align="center">
+					<p:commandButton id="btnCrear" value="Retirar"
+						action="#{retirosVista.accion_retirar}"
+						binding="#{retirosVista.btnCrear}"
+						update="panelRetiros,panelBotonesRetiros,panelTablaRetiros,msg" />
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						action="#{retirosVista.accion_limpiar}"
+						binding="#{retirosVista.btnLimpiar}"
+						update="panelRetiros,panelBotonesRetiros,panelTablaRetiros,msg" />
+				</div>
+			</p:panel>
+			<p:panel id="panelTablaRetiros" style="height:270px;width:1320px">
+				<div align="center">
+					<p:dataTable id="tablaRetiros" value="#{retirosVista.retiros}"
+						var="retiro" paginator="true" rows="5" style="height:350px;width:1200px">
+						<p:column headerText="Id" style="width:20px">
+							<p:outputLabel value="#{retiro.id.retCodigo}" />
+						</p:column>
+						<p:column headerText="Cuenta" style="width:100px">
+							<p:outputLabel value="#{retiro.id.cuentas.cueNumero}" />
+						</p:column>
+						<p:column headerText="Usuario" style="width:100px">
+							<p:outputLabel value="#{retiro.usuarios.usuNombre}" />
+						</p:column>
+						<p:column headerText="Valor" style="width:100px">
+							<p:outputLabel value="#{retiro.retValor}" />
+						</p:column>
+						<p:column headerText="Fecha" style="width:100px">
+							<p:outputLabel value="#{retiro.retFecha}" />
+						</p:column>
+						<p:column headerText="Descripción" style="width:100px">
+							<p:outputLabel value="#{retiro.retDescripcion}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

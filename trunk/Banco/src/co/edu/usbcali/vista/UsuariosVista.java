@@ -84,7 +84,7 @@ public class UsuariosVista {
 			
 			usuario.setTiposUsuarios(tipoUsu);
 			usuario.setUsuNombre(txtNombre.getValue().toString());
-			usuario.setUsuLogin(txtLogin.getValue().toString());
+			usuario.setUsuLogin(txtLogin.getValue().toString().toLowerCase());
 			usuario.setUsuClave(pswClave);
 			
 			delegadoDeNegocio.crearUsuario(usuario);
@@ -105,7 +105,7 @@ public class UsuariosVista {
 				
 				usuario.setTiposUsuarios(tipoUsu);
 				usuario.setUsuNombre(txtNombre.getValue().toString());
-				usuario.setUsuLogin(txtLogin.getValue().toString());
+				usuario.setUsuLogin(txtLogin.getValue().toString().toLowerCase());
 				usuario.setUsuClave(pswClave);
 				
 				delegadoDeNegocio.modificarUsuario(usuario);

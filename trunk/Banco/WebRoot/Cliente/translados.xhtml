@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>Transacciones</title>
+	</h:head>
+	<h:body>
+		<ui:insert name="header">
+			<ui:include src="/Menu/menuCliente.xhtml" />
+		</ui:insert>
+		<h:form>
+			<p:growl id="msg" />
+			<p:panel id="panelTransdos" header="Transacciones"
+				style="height:200px;width:1320px">
+				<div align="center">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="*Cuenta Origen:" />
+						<p:selectOneMenu id="cuentaOrigen"
+							value="#{transladosVista.numCuentaOrigen}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+							<f:selectItems value="#{transladosVista.numerosCuentasOrigen}" />
+								<p:ajax listener="#{transladosVista.consultarCuentasDestino}"
+									update="cuentaDestino,msg" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="*Cuenta Destino:" />
+						<p:selectOneMenu id="cuentaDestino"
+							value="#{transladosVista.numCuentaDestino}">
+							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
+							<f:selectItems value="#{transladosVista.numerosCuentasDestino}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Valor:" />
+						<p:inputText id="txtValor" binding="#{transladosVista.txtValor}" />
+					</p:panelGrid>
+				</div>
+			</p:panel>
+			<p:panel id="panelBotonesTransdos" style="height:50px;width:1320px">
+				<div align="center">
+					<p:commandButton id="btnCrear" value="Realizar translado"
+						action="#{transladosVista.accion_translado}"
+						binding="#{transladosVista.btnCrear}" update="panelTransdos,msg" />
+
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						action="#{transladosVista.accion_limpiar}"
+						binding="#{transladosVista.btnLimpiar}" update="panelTransdos,msg" />
+				</div>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
