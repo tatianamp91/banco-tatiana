@@ -27,4 +27,6 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="co.edu" scoped-proxy="interfaces" />
+	
+	<import resource="securityContext.xml" />
 </beans>

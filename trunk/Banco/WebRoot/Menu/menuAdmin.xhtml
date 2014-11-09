@@ -25,6 +25,9 @@
 				</p:submenu>
 			</p:column>
 		</p:submenu>
+		<p:menuitem value="Salir"
+			url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/index.jsp"
+			icon="ui-icon-close" />
 	</p:megaMenu>
 </h:body>
 </html>
