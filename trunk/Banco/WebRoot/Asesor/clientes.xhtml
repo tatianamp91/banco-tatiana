@@ -19,32 +19,38 @@
 				style="height:180px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="4">
-						<p:outputLabel value="Número de Documento" />
-						<p:inputText id="txtId" binding="#{clientesVista.txtId}">
+						<p:outputLabel value="*Número de Documento:" />
+						<p:inputText id="txtId" binding="#{clientesVista.txtId}" 
+						required="true" requiredMessage="Debe ingresar un número de documento">
 							<p:ajax listener="#{clientesVista.consultarTxtId}"
 								update="panelClientes,panelBotonesClientes,msg" />
 						</p:inputText>
 
-						<p:outputLabel value="Tipo de Documento" />
+						<p:outputLabel value="*Tipo de Documento:" />
 						<p:selectOneMenu id="tipoDocumento"
-							binding="#{clientesVista.tipoDocumento}">
+							binding="#{clientesVista.tipoDocumento}"
+							required="true" requiredMessage="Debe seleccionar un tipo de documento">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{clientesVista.tiposDocumentos}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Nombre:" />
-						<p:inputText id="txtNombre" binding="#{clientesVista.txtNombre}" />
+						<p:outputLabel value="*Nombre:" />
+						<p:inputText id="txtNombre" binding="#{clientesVista.txtNombre}" 
+							required="true" requiredMessage="Debe ingresar el nombre del cliente"/>
 
-						<p:outputLabel value="Dirección:" />
+						<p:outputLabel value="*Dirección:" />
 						<p:inputText id="txtDireccion"
-							binding="#{clientesVista.txtDireccion}" />
+							binding="#{clientesVista.txtDireccion}"
+							required="true" requiredMessage="Debe ingresar la dirección del cliente" />
 
-						<p:outputLabel value="Teléfono:" />
+						<p:outputLabel value="*Teléfono:" />
 						<p:inputText id="txtTelefono"
-							binding="#{clientesVista.txtTelefono}" />
+							binding="#{clientesVista.txtTelefono}" 
+							required="true" requiredMessage="Debe ingresar el telefono del cliente"/>
 
-						<p:outputLabel value="Email" />
-						<p:inputText id="txtEmail" binding="#{clientesVista.txtEmail}" />
+						<p:outputLabel value="*Email" />
+						<p:inputText id="txtEmail" binding="#{clientesVista.txtEmail}" 
+							required="true" requiredMessage="Debe ingresar el email del cliente"/>
 
 					</p:panelGrid>
 				</div>

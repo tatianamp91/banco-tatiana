@@ -20,7 +20,8 @@
 				<div align="center">
 					<p:panelGrid columns="6">
 						<p:outputLabel value="*Id cliente:" />
-						<p:inputText id="txtIdCliente" binding="#{consignacionesVista.txtIdCliente}">
+						<p:inputText id="txtIdCliente" binding="#{consignacionesVista.txtIdCliente}"
+							required="true" requiredMessage="debe ingresar el id del cliente">
 							<p:ajax listener="#{consignacionesVista.consultarTxtIdCliente}"
 								update="panelConsignaciones,panelBotonesConsignaciones,msg" />
 						</p:inputText>
@@ -44,7 +45,8 @@
 						<p:inputText id="txtEmail" binding="#{consignacionesVista.txtEmail}" disabled="true"/>
 						
 						<p:outputLabel value="*Cuentas:" />
-						<p:selectOneMenu id="cuentas" value="#{consignacionesVista.numCuenta}">
+						<p:selectOneMenu id="cuentas" value="#{consignacionesVista.numCuenta}"
+							required="true" requiredMessage="Debe seleccionar un número de cuenta">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
 							<f:selectItems value="#{consignacionesVista.numerosCuentas}" />
 							<p:ajax listener="#{consignacionesVista.consultarConsignaciones}"
@@ -52,10 +54,12 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="*Valor:" />
-						<p:inputText id="txtValor" binding="#{consignacionesVista.txtValor}"/>
+						<p:inputText id="txtValor" binding="#{consignacionesVista.txtValor}"
+							required="true" requiredMessage="Debe ingresar el valor del la cosignción"/>
 						
 						<p:outputLabel value="*Descripción:" />
-						<p:inputText id="txtDescripcion" binding="#{consignacionesVista.txtDescripcion}"/>
+						<p:inputText id="txtDescripcion" binding="#{consignacionesVista.txtDescripcion}"
+							required="true" requiredMessage="Debe ingresar la descripción del la cosignción"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

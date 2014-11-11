@@ -19,14 +19,16 @@
 				style="height:180px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="2">
-						<p:outputLabel value="Id Tipo Usuario" />
-						<p:inputText id="txtId" binding="#{tiposUsuariosVista.txtIdTipoUsu}">
+						<p:outputLabel value="*Id Tipo Usuario:" />
+						<p:inputText id="txtId" binding="#{tiposUsuariosVista.txtIdTipoUsu}"
+							required="true" requiredMessage="Debe ingresar el id del tipo de usuario">
 							<p:ajax listener="#{tiposUsuariosVista.consultarTxtIdTipoUsu}"
 								update="panelTiposUsuarios,panelBotonesTiposUsuarios,msg" />
 						</p:inputText>
 
-						<p:outputLabel value="Nombre:" />
-						<p:inputText id="txtNombre" binding="#{tiposUsuariosVista.txtNombre}" />
+						<p:outputLabel value="*Nombre:" />
+						<p:inputText id="txtNombre" binding="#{tiposUsuariosVista.txtNombre}" 
+							required="true" requiredMessage="Debe ingresar el nombre del tipo de usuario"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

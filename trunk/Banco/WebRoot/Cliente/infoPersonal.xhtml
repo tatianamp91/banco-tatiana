@@ -25,17 +25,20 @@
 						<p:outputLabel value="Tipo de Documento:" />
 						<p:inputText id="txtTipoDoc" value="#{infoPersonalVista.txtTipoDoc}" disabled="true"/>
 
-						<p:outputLabel value="*Nombre:" />
-						<p:inputText id="txtNombre" value="#{infoPersonalVista.txtNombre}" />
+						<p:outputLabel value="Nombre:" />
+						<p:inputText id="txtNombre" value="#{infoPersonalVista.txtNombre}" disabled="true"/>
 
 						<p:outputLabel value="*Dirección:" />
-						<p:inputText id="txtDireccion" value="#{infoPersonalVista.txtDireccion}"/>
+						<p:inputText id="txtDireccion" value="#{infoPersonalVista.txtDireccion}"
+							required="true" requiredMessage="Debe ingresar la dirección"/>
 
 						<p:outputLabel value="*Teléfono:" />
-						<p:inputText id="txtTelefono" value="#{infoPersonalVista.txtTelefono}" />
+						<p:inputText id="txtTelefono" value="#{infoPersonalVista.txtTelefono}" 
+							required="true" requiredMessage="Debe ingresar el telefono"/>
 
 						<p:outputLabel value="*Email:" />
-						<p:inputText id="txtEmail" value="#{infoPersonalVista.txtEmail}" />
+						<p:inputText id="txtEmail" value="#{infoPersonalVista.txtEmail}" 
+							required="true" requiredMessage="Debe ingresar el email"/>
  					</p:panelGrid>
 				</div>
 			</p:panel>
