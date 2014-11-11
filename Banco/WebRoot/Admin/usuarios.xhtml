@@ -20,31 +20,37 @@
 				<div align="center">
 					<p:panelGrid columns="4">
 						<p:outputLabel value="*Número de Cédula:" />
-						<p:inputText id="txtCedula" binding="#{usuariosVista.txtCedula}">
+						<p:inputText id="txtCedula" binding="#{usuariosVista.txtCedula}"
+							required="true" requiredMessage="Debe ingresar el número de cedula">
 							<p:ajax listener="#{usuariosVista.consultarTxtCedula}"
 								update="panelUsuarios,panelBotonesUsuarios,msg" />
 						</p:inputText>
 
 						<p:outputLabel value="*Tipo de Usuario:" />
 						<p:selectOneMenu id="tipoUsuario"
-							binding="#{usuariosVista.tipoUsuario}">
+							binding="#{usuariosVista.tipoUsuario}"
+							required="true" requiredMessage="Debe seleccionar el tipo de usuario">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{usuariosVista.tiposUsuarios}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="*Nombre:" />
-						<p:inputText id="txtNombre" binding="#{usuariosVista.txtNombre}" />
+						<p:inputText id="txtNombre" binding="#{usuariosVista.txtNombre}" 
+							required="true" requiredMessage="Debe ingresar el nombre del usuario"/>
 
 						<p:outputLabel value="*Login:" />
-						<p:inputText id="txtLogin" binding="#{usuariosVista.txtLogin}" />
+						<p:inputText id="txtLogin" binding="#{usuariosVista.txtLogin}" 
+							required="true" requiredMessage="Debe ingresar el login del usuario"/>
 						
 						<p:outputLabel value="*Clave:" />
 						<p:password id="pswClave1" value="#{usuariosVista.pswClave}"
 							match="pswClave2"
-							validatorMessage="Contraseña no Coincide" />
+							validatorMessage="Contraseña no Coincide" 
+							required="true" requiredMessage="Debe ingresar la clave"/>
 
 						<p:outputLabel value="*Confirme clave:" />
-						<p:password id="pswClave2" value="#{usuariosVista.pswClave}" />
+						<p:password id="pswClave2" value="#{usuariosVista.pswClave}" 
+							required="true" requiredMessage="Debe confirmar la clave"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

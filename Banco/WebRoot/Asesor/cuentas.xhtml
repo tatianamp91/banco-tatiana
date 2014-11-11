@@ -19,14 +19,15 @@
 				style="height:180px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="4">
-						<p:outputLabel value="Número de Documento Cliente" />
+						<p:outputLabel value="*Número de Documento Cliente:" />
 						<p:inputText id="txtIdCliente"
-							binding="#{cuentasVista.txtIdCliente}">
+							binding="#{cuentasVista.txtIdCliente}"
+							required="true" requiredMessage="Debe ingresar el número de documento del cliente">
 							<p:ajax listener="#{cuentasVista.consultarTxtId}"
 								update="panelCuentas,panelBotonesCuentas,msg,panelTablaCuentas" />
 						</p:inputText>
 
-						<p:outputLabel value="Tipo de Documento" />
+						<p:outputLabel value="Tipo de Documento:" />
 						<p:inputText id="txtTipoDocumento"
 							binding="#{cuentasVista.txtTipoDocumento}" disabled="true" />
 

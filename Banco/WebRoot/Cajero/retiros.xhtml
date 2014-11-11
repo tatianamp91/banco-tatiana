@@ -20,7 +20,8 @@
 				<div align="center">
 					<p:panelGrid columns="6">
 						<p:outputLabel value="*Id cliente:" />
-						<p:inputText id="txtIdCliente" binding="#{retirosVista.txtIdCliente}">
+						<p:inputText id="txtIdCliente" binding="#{retirosVista.txtIdCliente}"
+							required="true" requiredMessage="Debe ingresar id del cliente">
 							<p:ajax listener="#{retirosVista.consultarTxtIdCliente}"
 								update="panelRetiros,panelBotonesRetiros,msg" />
 						</p:inputText>
@@ -44,7 +45,8 @@
 						<p:inputText id="txtEmail" binding="#{retirosVista.txtEmail}" disabled="true"/>
 						
 						<p:outputLabel value="*Cuentas:" />
-						<p:selectOneMenu id="cuentas" value="#{retirosVista.numCuenta}">
+						<p:selectOneMenu id="cuentas" value="#{retirosVista.numCuenta}"
+							required="true" requiredMessage="Debe seleccionar un número de cuenta">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
 							<f:selectItems value="#{retirosVista.numerosCuentas}" />
 							<p:ajax listener="#{retirosVista.consultarRetiros}"
@@ -52,10 +54,12 @@
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="*Valor:" />
-						<p:inputText id="txtValor" binding="#{retirosVista.txtValor}"/>
+						<p:inputText id="txtValor" binding="#{retirosVista.txtValor}"
+							required="true" requiredMessage="Debe ingresar el valor del retiro"/>
 						
 						<p:outputLabel value="*Descripción:" />
-						<p:inputText id="txtDescripcion" binding="#{retirosVista.txtDescripcion}"/>
+						<p:inputText id="txtDescripcion" binding="#{retirosVista.txtDescripcion}"
+							required="true" requiredMessage="Debe ingresar la descripción del retiro"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

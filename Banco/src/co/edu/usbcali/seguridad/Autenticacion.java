@@ -2,6 +2,11 @@ package co.edu.usbcali.seguridad;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -42,6 +47,10 @@ public class Autenticacion implements AuthenticationProvider {
             grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
+            
+            //HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            //httpSession.setAttribute("usuario", name);
+
             return auth;
         } else {
         		try{
@@ -88,6 +97,11 @@ public class Autenticacion implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
          return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+    
+    public String logOut() {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("loginController");
+        return "login.html";
     }
  
 }

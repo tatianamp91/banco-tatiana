@@ -21,7 +21,8 @@
 					<p:panelGrid columns="2">
 						<p:outputLabel value="*Cuenta Origen:" />
 						<p:selectOneMenu id="cuentaOrigen"
-							value="#{transladosVista.numCuentaOrigen}">
+							value="#{transladosVista.numCuentaOrigen}"
+							required="true" requiredMessage="Debe seleccionar cuanta origen">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{transladosVista.numerosCuentasOrigen}" />
 								<p:ajax listener="#{transladosVista.consultarCuentasDestino}"
@@ -30,13 +31,15 @@
 
 						<p:outputLabel value="*Cuenta Destino:" />
 						<p:selectOneMenu id="cuentaDestino"
-							value="#{transladosVista.numCuentaDestino}">
+							value="#{transladosVista.numCuentaDestino}"
+							required="true" requiredMessage="Debe seleccionar cuanta destino">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{transladosVista.numerosCuentasDestino}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Valor:" />
-						<p:inputText id="txtValor" binding="#{transladosVista.txtValor}" />
+						<p:outputLabel value="*Valor:" />
+						<p:inputText id="txtValor" binding="#{transladosVista.txtValor}" 
+							required="true" requiredMessage="Debe ingresar valor del translado"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

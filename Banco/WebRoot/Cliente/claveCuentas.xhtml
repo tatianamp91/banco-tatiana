@@ -52,14 +52,17 @@
 							disabled="true" />
 
 						<p:outputLabel value="*Clave actual:" />
-						<p:password id="pswClave" value="#{claveCuentasVista.pswClaveActual}" />
+						<p:password id="pswClave" value="#{claveCuentasVista.pswClaveActual}" 
+							required="true" requiredMessage="debe ingresar la clave actual"/>
 
 						<p:outputLabel value="*Nueva clave:" />
 						<p:password id="pswClave1" value="#{claveCuentasVista.pswClave}"
-							match="pswClave2" validatorMessage="Contraseña no Coincide" />
+							match="pswClave2" validatorMessage="Contraseña no Coincide" 
+							required="true" requiredMessage="debe ingresar la nueva clave"/>
 
 						<p:outputLabel value="*Confirme clave:" />
-						<p:password id="pswClave2" value="#{claveCuentasVista.pswClave}" />
+						<p:password id="pswClave2" value="#{claveCuentasVista.pswClave}"
+							required="true" requiredMessage="debe confirmar la clave"/>
 					</p:panelGrid>
 				</div>
 			</p:panel>

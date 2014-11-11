@@ -19,14 +19,16 @@
 				style="height:180px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="2">
-						<p:outputLabel value="Id Tipo Documento" />
-						<p:inputText id="txtId" binding="#{tiposDocumentosVista.txtIdTipoDoc}">
+						<p:outputLabel value="*Id Tipo Documento:" />
+						<p:inputText id="txtId" binding="#{tiposDocumentosVista.txtIdTipoDoc}"
+							required="true" requiredMessage="Debe ingresar el id del tipo de documento">
 							<p:ajax listener="#{tiposDocumentosVista.consultarTxtIdTipoDoc}"
 								update="panelTiposDocumentos,panelBotonesTiposDocumentos,msg" />
 						</p:inputText>
 
-						<p:outputLabel value="Nombre:" />
-						<p:inputText id="txtNombre" binding="#{tiposDocumentosVista.txtNombre}" />
+						<p:outputLabel value="*Nombre:" />
+						<p:inputText id="txtNombre" binding="#{tiposDocumentosVista.txtNombre}"
+							required="true" requiredMessage="Debe ingresar el nombre del tipo de documento" />
 					</p:panelGrid>
 				</div>
 			</p:panel>
