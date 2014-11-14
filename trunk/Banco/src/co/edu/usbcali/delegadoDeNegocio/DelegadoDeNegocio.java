@@ -270,6 +270,16 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	public List<Usuarios> consultarUsuarios() throws Exception {
 		return usuariosLogica.consultarUsuarios();
 	}
+	
+	@Override
+	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception {
+		return usuariosLogica.consultarUsuariosLogin(usuario);
+	}
+	
+	@Override
+	public Usuarios consultarUsuariosLoginClave(String usuario, String clave) throws Exception {
+		return usuariosLogica.consultarUsuariosLoginClave(usuario, clave);
+	}
 
 	@Override
 	public void consignacion(Consignaciones consignacion) throws Exception {
