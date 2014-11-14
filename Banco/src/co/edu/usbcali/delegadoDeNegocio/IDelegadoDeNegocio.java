@@ -105,6 +105,10 @@ public interface IDelegadoDeNegocio {
 
 	public List<Usuarios> consultarUsuarios () throws Exception;
 	
+	public Usuarios consultarUsuariosLogin(Usuarios usuario) throws Exception;
+	
+	public Usuarios consultarUsuariosLoginClave(String usuario, String clave) throws Exception;
+	
 	public void consignacion(Consignaciones consignacion) throws Exception;
 	
 	public void retiro (Retiros retiro) throws Exception;

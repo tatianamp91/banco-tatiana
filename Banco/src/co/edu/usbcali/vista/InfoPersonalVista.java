@@ -4,6 +4,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.commandbutton.CommandButton;
 
@@ -31,7 +33,9 @@ public class InfoPersonalVista {
 	@PostConstruct
 	public void consultarCliente(){
 		try{
-			cliId = 101234L; // tomar usuario de sesion
+			HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	        long idCli = (long) httpSession.getAttribute("cliente");
+			cliId = idCli;
 			Clientes cliente = delegadoDeNegocio.consultarCliente(cliId);
 			if(cliente != null){
 				txtId = cliente.getCliId().toString();

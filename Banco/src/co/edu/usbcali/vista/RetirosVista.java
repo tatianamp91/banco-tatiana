@@ -7,6 +7,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
@@ -112,7 +114,9 @@ public class RetirosVista {
 			id.setCuentas(cuen);	
 			retiro.setId(id);
 			
-			usuCedula = 10L;//cambiar a usuario en sesión
+			HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	        long cedula = (long) httpSession.getAttribute("usuario");
+			usuCedula = cedula;
 			Usuarios usuario = delegadoDeNegocio.consultarUsuario(usuCedula);
 			retiro.setUsuarios(usuario);
 			retiro.setRetValor(Double.parseDouble(txtValor.getValue().toString()));

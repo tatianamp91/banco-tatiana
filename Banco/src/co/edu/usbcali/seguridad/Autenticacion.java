@@ -1,107 +1,124 @@
 package co.edu.usbcali.seguridad;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.password.Password;
 
-import co.edu.usbcali.logica.IClientesLogica;
-import co.edu.usbcali.logica.IUsuariosLogica;
+import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
 import co.edu.usbcali.modelo.Usuarios;
+import co.edu.usbcali.utilidades.Utilidades;
  
  
-@Scope("singleton")
-@Component("Autenticacion")
-public class Autenticacion implements AuthenticationProvider {
+@ManagedBean
+@SessionScoped
+public class Autenticacion{
 	
-	@Autowired
-	private IUsuariosLogica usuariosLogica;
-	@Autowired
-	private IClientesLogica clientesLogica;
+	@ManagedProperty(value = "#{delegadoDeNegocio}")
+	private IDelegadoDeNegocio delegadoDeNegocio;
+	private String rol;
+	private InputText txtUsuario;
+	private Password txtContraseña;
+	private InputText txtCliId;
+	private InputText txtNumCue;
+	private CommandButton btnIngresar;
      
-    @Override
-    public Authentication authenticate(Authentication authentication)throws AuthenticationException {
-    	
-        String name = authentication.getName();
-        String password = authentication.getCredentials().toString();
-        Usuarios usuario = null;
-        Clientes cliente = null;
-                 
-        if (name.equals("admin") && password.equals("1234")) {
-            final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            final UserDetails principal = new User(name, password, grantedAuths);
-            final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-            
-            //HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            //httpSession.setAttribute("usuario", name);
-
-            return auth;
-        } else {
-        		try{
-					usuario = usuariosLogica.consultarUsuariosLoginClave(name, password);
-        		} catch (Exception e) {
-					e.printStackTrace();
-				}	
-				if(usuario != null){
-					if(usuario.getTiposUsuarios().getTusuCodigo() == 10){
-						final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-				        grantedAuths.add(new SimpleGrantedAuthority("ROLE_CAJERO"));
-				        final UserDetails principal = new User(name, password, grantedAuths);
-				        final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-				        return auth;
-					}else if(usuario.getTiposUsuarios().getTusuCodigo() == 20){
-						final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-				        grantedAuths.add(new SimpleGrantedAuthority("ROLE_ASESOR"));
-				        final UserDetails principal = new User(name, password, grantedAuths);
-				        final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-				        return auth;
-					}
-				}else {
-					Long numCue = Long.parseLong(name);
-					Long idCliente = 101234L;
-					try{
-						cliente = clientesLogica.consultarClientesCuenta(numCue, idCliente, password);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					if(cliente != null){
-						final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-				        grantedAuths.add(new SimpleGrantedAuthority("ROLE_CLIENTE"));
-				        final UserDetails principal = new User(name, password, grantedAuths);
-				        final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-				        return auth;
-					}else{
-						return null;
-					}
+    public String autenticacionAplicacion() throws Exception {
+    	try{
+    		String usuario = txtUsuario.getValue().toString();
+    		String contrasena = txtContraseña.getValue().toString();
+    		
+	        Usuarios usuarioBD = delegadoDeNegocio.consultarUsuariosLoginClave(usuario, contrasena);	
+	        if(usuarioBD != null){
+				if(usuarioBD.getTiposUsuarios().getTusuCodigo() == 10){
+					rol = "Cajero";
+				}else if(usuarioBD.getTiposUsuarios().getTusuCodigo() == 20){
+					rol = "Asesor";
 				}
-				return null;
+	        }else{
+	        	if (usuario.trim().equals("admin") && contrasena.trim().equals("1234")) {
+			        rol = "Admin";
+		        }else{
+		        	throw new Exception("Autenticación fallida");
+		        }
+	        }	        
+	        if(!rol.trim().equals("")){
+	        	HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	        	if(usuarioBD != null){
+	        		httpSession.setAttribute("usuario", usuarioBD.getUsuCedula());
+	        	}else{
+	        		httpSession.setAttribute("usuario", usuario);
+	        	}
+	        }
+		} catch (Exception e) {
+			Utilidades.addErrorMessage((e.getMessage()));
+		}
+    	return rol;
+    } 
+    
+    public String autenticacionPortal() throws Exception {
+    	
+    	Long numCue = Long.parseLong(txtNumCue.getValue().toString());
+    	Long cliId = Long.parseLong(txtCliId.getValue().toString());
+    	String contrasena = txtContraseña.getValue().toString();
+    	
+    	Clientes cliente = delegadoDeNegocio.consultarClientesCuenta(numCue, cliId, contrasena);		
+		if(cliente != null){
+			rol = "Cliente";
+			HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+	        httpSession.setAttribute("cliente", cliente.getCliId());
+		}else{
+        	throw new Exception("Autenticación fallida");
         }
+		return rol;
     }
-    
-    @Override
-    public boolean supports(Class<?> authentication) {
-         return authentication.equals(UsernamePasswordAuthenticationToken.class);
-    }
-    
-    public String logOut() {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("loginController");
-        return "login.html";
-    }
- 
+
+	public IDelegadoDeNegocio getDelegadoDeNegocio() {
+		return delegadoDeNegocio;
+	}
+	public void setDelegadoDeNegocio(IDelegadoDeNegocio delegadoDeNegocio) {
+		this.delegadoDeNegocio = delegadoDeNegocio;
+	}
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	public InputText getTxtUsuario() {
+		return txtUsuario;
+	}
+	public void setTxtUsuario(InputText txtUsuario) {
+		this.txtUsuario = txtUsuario;
+	}
+	public Password getTxtContraseña() {
+		return txtContraseña;
+	}
+	public void setTxtContraseña(Password txtContraseña) {
+		this.txtContraseña = txtContraseña;
+	}
+	public InputText getTxtCliId() {
+		return txtCliId;
+	}
+	public void setTxtCliId(InputText txtCliId) {
+		this.txtCliId = txtCliId;
+	}
+	public InputText getTxtNumCue() {
+		return txtNumCue;
+	}
+	public void setTxtNumCue(InputText txtNumCue) {
+		this.txtNumCue = txtNumCue;
+	}
+	public CommandButton getBtnIngresar() {
+		return btnIngresar;
+	}
+	public void setBtnIngresar(CommandButton btnIngresar) {
+		this.btnIngresar = btnIngresar;
+	}
 }

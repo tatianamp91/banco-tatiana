@@ -5,10 +5,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.password.Password;
 
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
@@ -78,7 +79,9 @@ public class ClaveCuentasVista {
 	public List<Cuentas> getCuentas() {
 		try{
 			if(cuentas == null){
-				cliId = 101234L; //Colocar usuario sesion
+		        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		        long idCli = (long) httpSession.getAttribute("cliente");
+				cliId = idCli;
 				Clientes cliente = delegadoDeNegocio.consultarCliente(cliId);
 				cuentas = delegadoDeNegocio.consultarCuentasCliente(cliente);
 				estado();
@@ -133,6 +136,5 @@ public class ClaveCuentasVista {
 	}
 	public void setPswClaveActual(String pswClaveActual) {
 		this.pswClaveActual = pswClaveActual;
-	}
-	
+	}	
 }
