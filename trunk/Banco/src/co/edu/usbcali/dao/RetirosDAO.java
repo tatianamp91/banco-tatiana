@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-
-import co.edu.usbcali.modelo.Consignaciones;
 import co.edu.usbcali.modelo.Cuentas;
 import co.edu.usbcali.modelo.Retiros;
 import co.edu.usbcali.modelo.RetirosId;
@@ -25,16 +23,6 @@ public class RetirosDAO implements IRetirosDAO {
 	@Override
 	public void crearRetiro(Retiros retiro) throws Exception {
 		sessionFactory.getCurrentSession().save(retiro);		
-	}
-
-	@Override
-	public void modificarRetiro(Retiros retiro) throws Exception {
-		sessionFactory.getCurrentSession().update(retiro);		
-	}
-
-	@Override
-	public void eliminarRetiro(Retiros retiro) throws Exception {
-		sessionFactory.getCurrentSession().delete(retiro);		
 	}
 
 	@Override

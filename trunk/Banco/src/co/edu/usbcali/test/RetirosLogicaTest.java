@@ -31,7 +31,7 @@ public class RetirosLogicaTest {
 	private IUsuariosLogica usuariosLogica;
 	
 	private static Logger logger = LoggerFactory.getLogger(ClientesLogicaTest.class);
-	
+	/*
 	@Test
 	public void crearRetiro () throws Exception {
 		try{

@@ -10,10 +10,6 @@ public interface IConsignacionesDAO {
 	
 	public void crearConsignacion (Consignaciones consignacion) throws Exception;
 	
-	public void modificarConsignacion (Consignaciones consignacion) throws Exception;
-	
-	public void eliminarConsignacion (Consignaciones consignacion) throws Exception;
-	
 	public Consignaciones consultarConsignacion (ConsignacionesId  id) throws Exception;
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;

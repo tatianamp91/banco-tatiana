@@ -26,14 +26,6 @@ public interface IDelegadoDeNegocio {
 	
 	public Clientes consultarClientesCuenta(Long numCuenta, Long idCliente, String clave) throws Exception;
 	
-	public void crearConsignacion (Consignaciones consignacion) throws Exception;
-	
-	public void cambiarSaldo(Consignaciones consignacion) throws Exception;
-	
-	public void modificarConsignacion (Consignaciones consignacion) throws Exception;
-	
-	public void eliminarConsignacion (Consignaciones consignacion) throws Exception;
-	
 	public Consignaciones consultarConsignacion (ConsignacionesId  id) throws Exception;
 
 	public List<Consignaciones> consultarConsignaciones () throws Exception;
@@ -55,17 +47,6 @@ public interface IDelegadoDeNegocio {
 	public List<Cuentas> consultarCuentas () throws Exception;
 	
 	public List<Cuentas> consultarCuentasCliente(Clientes cliente) throws Exception;
-	
-	public void crearRetiro (Retiros retiro) throws Exception;
-	
-	public void cambiarSaldo(Retiros retiro) throws Exception;
-	
-	public void modificarRetiro (Retiros retiro) throws Exception;
-	
-	public void eliminarRetiro (Retiros retiro) throws Exception;
-	
-	public void transladoEntreCuentas(Double valorTranslado, Cuentas cuentaOrigen, Cuentas cuentaDestino)
-		throws Exception;
 	
 	public Retiros consultarRetiro (RetirosId  id) throws Exception;
 
