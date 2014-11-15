@@ -56,26 +56,29 @@ public class Autenticacion{
 	        		httpSession.setAttribute("usuario", usuario);
 	        	}
 	        }
-		} catch (Exception e) {
+		}catch (Exception e) {
 			Utilidades.addErrorMessage((e.getMessage()));
 		}
     	return rol;
     } 
     
     public String autenticacionPortal() throws Exception {
-    	
-    	Long numCue = Long.parseLong(txtNumCue.getValue().toString());
-    	Long cliId = Long.parseLong(txtCliId.getValue().toString());
-    	String contrasena = txtContraseña.getValue().toString();
-    	
-    	Clientes cliente = delegadoDeNegocio.consultarClientesCuenta(numCue, cliId, contrasena);		
-		if(cliente != null){
-			rol = "Cliente";
-			HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-	        httpSession.setAttribute("cliente", cliente.getCliId());
-		}else{
-        	throw new Exception("Autenticación fallida");
-        }
+    	try{    	
+	    	Long numCue = Long.parseLong(txtNumCue.getValue().toString());
+	    	Long cliId = Long.parseLong(txtCliId.getValue().toString());
+	    	String contrasena = txtContraseña.getValue().toString();
+	    	
+	    	Clientes cliente = delegadoDeNegocio.consultarClientesCuenta(numCue, cliId, contrasena);		
+			if(cliente != null){
+				rol = "Cliente";
+				HttpSession httpSession = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		        httpSession.setAttribute("cliente", cliente.getCliId());
+			}else{
+	        	throw new Exception("Autenticación fallida");
+	        }
+    	}catch (Exception e) {
+			Utilidades.addErrorMessage((e.getMessage()));
+		}
 		return rol;
     }
 

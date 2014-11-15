@@ -76,26 +76,6 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 
 	@Override
-	public void crearConsignacion(Consignaciones consignacion) throws Exception {
-		consignacionesLogica.crearConsignacion(consignacion);
-	}
-	
-	@Override
-	public void cambiarSaldo(Consignaciones consignacion) throws Exception{
-		consignacionesLogica.cambiarSaldo(consignacion);
-	}
-
-	@Override
-	public void modificarConsignacion(Consignaciones consignacion) throws Exception {
-		consignacionesLogica.modificarConsignacion(consignacion);
-	}
-
-	@Override
-	public void eliminarConsignacion(Consignaciones consignacion) throws Exception {
-		consignacionesLogica.eliminarConsignacion(consignacion);
-	}
-
-	@Override
 	public Consignaciones consultarConsignacion(ConsignacionesId id) throws Exception {
 		return consignacionesLogica.consultarConsignacion(id);
 	}
@@ -152,26 +132,6 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	}
 
 	@Override
-	public void crearRetiro(Retiros retiro) throws Exception {
-		retirosLogica.crearRetiro(retiro);
-	}
-	
-	@Override
-	public void cambiarSaldo(Retiros retiro) throws Exception {
-		retirosLogica.cambiarSaldo(retiro);
-	}
-
-	@Override
-	public void modificarRetiro(Retiros retiro) throws Exception {
-		retirosLogica.modificarRetiro(retiro);
-	}
-
-	@Override
-	public void eliminarRetiro(Retiros retiro) throws Exception {
-		retirosLogica.eliminarRetiro(retiro);
-	}
-	
-	@Override
 	public List<Retiros> consultarRetirosCuenta(Cuentas cuenta) throws Exception {
 		return retirosLogica.consultarRetirosCuenta(cuenta);
 	}
@@ -181,11 +141,6 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 		return retirosLogica.getConsecutivoRetiros(sqlName);
 	}
 
-	@Override
-	public void transladoEntreCuentas(Double valorTranslado, Cuentas cuentaOrigen, Cuentas cuentaDestino)
-		throws Exception {
-		retirosLogica.transladoEntreCuentas(valorTranslado, cuentaOrigen, cuentaDestino);
-	}
 	@Override
 	public Retiros consultarRetiro(RetirosId id) throws Exception {
 		return retirosLogica.consultarRetiro(id);

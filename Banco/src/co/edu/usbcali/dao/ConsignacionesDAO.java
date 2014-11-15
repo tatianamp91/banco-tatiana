@@ -27,16 +27,6 @@ public class ConsignacionesDAO implements IConsignacionesDAO {
 	}
 
 	@Override
-	public void modificarConsignacion(Consignaciones consignacion) throws Exception {
-		sessionFactory.getCurrentSession().update(consignacion);		
-	}
-
-	@Override
-	public void eliminarConsignacion(Consignaciones consignacion) throws Exception {
-		sessionFactory.getCurrentSession().delete(consignacion);		
-	}
-
-	@Override
 	public Consignaciones consultarConsignacion(ConsignacionesId id) throws Exception {
 		return (Consignaciones) sessionFactory.getCurrentSession().get(Consignaciones.class, id);
 	}
