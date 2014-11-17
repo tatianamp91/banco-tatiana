@@ -19,47 +19,42 @@
 				style="height:200px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="6">
-						<p:outputLabel value="*Id cliente:" />
-						<p:inputText id="txtIdCliente" binding="#{retirosVista.txtIdCliente}"
-							required="true" requiredMessage="Debe ingresar id del cliente">
-							<p:ajax listener="#{retirosVista.consultarTxtIdCliente}"
-								update="panelRetiros,panelBotonesRetiros,msg" />
+						<p:outputLabel value="*Número de Cuenta:" />
+						<p:inputText id="txtNumCue" binding="#{retirosVista.txtNumCue}"
+							required="true"
+							requiredMessage="Debe ingresar el número de cuenta">
+							<p:ajax listener="#{retirosVista.consultarTxtNumCue}"
+								update="panelRetiros,panelBotonesRetiros,panelTablaRetiros,msg" />
 						</p:inputText>
+
+						<p:outputLabel value="Número de identificación:" />
+						<p:inputText id="txtCliId"
+							binding="#{retirosVista.txtCliId}" disabled="true" />
 
 						<p:outputLabel value="Tipo de Documento:" />
 						<p:inputText id="tipoDocumento"
-							binding="#{retirosVista.txtTipoDoc}" disabled="true"/>
+							binding="#{retirosVista.txtTipoDoc}" disabled="true" />
 
 						<p:outputLabel value="Nombre:" />
-						<p:inputText id="txtNombre" binding="#{retirosVista.txtNombre}" disabled="true"/>
+						<p:inputText id="txtNombre" binding="#{retirosVista.txtNombre}"
+							disabled="true" />
 
 						<p:outputLabel value="Dirección:" />
 						<p:inputText id="txtDireccion"
-							binding="#{retirosVista.txtDireccion}" disabled="true"/>
+							binding="#{retirosVista.txtDireccion}" disabled="true" />
 
 						<p:outputLabel value="Teléfono:" />
 						<p:inputText id="txtTelefono"
-							binding="#{retirosVista.txtTelefono}" disabled="true"/>
+							binding="#{retirosVista.txtTelefono}" disabled="true" />
 
 						<p:outputLabel value="Email:" />
-						<p:inputText id="txtEmail" binding="#{retirosVista.txtEmail}" disabled="true"/>
-						
-						<p:outputLabel value="*Cuentas:" />
-						<p:selectOneMenu id="cuentas" value="#{retirosVista.numCuenta}"
-							required="true" requiredMessage="Debe seleccionar un número de cuenta">
-							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
-							<f:selectItems value="#{retirosVista.numerosCuentas}" />
-							<p:ajax listener="#{retirosVista.consultarRetiros}"
-								update="panelTablaRetiros,msg" />
-						</p:selectOneMenu>
-						
+						<p:inputText id="txtEmail" binding="#{retirosVista.txtEmail}"
+							disabled="true" />
+
 						<p:outputLabel value="*Valor:" />
 						<p:inputText id="txtValor" binding="#{retirosVista.txtValor}"
-							required="true" requiredMessage="Debe ingresar el valor del retiro"/>
-						
-						<p:outputLabel value="*Descripción:" />
-						<p:inputText id="txtDescripcion" binding="#{retirosVista.txtDescripcion}"
-							required="true" requiredMessage="Debe ingresar la descripción del retiro"/>
+							required="true"
+							requiredMessage="Debe ingresar el valor del retiro" />
 					</p:panelGrid>
 				</div>
 			</p:panel>
@@ -78,13 +73,8 @@
 			<p:panel id="panelTablaRetiros" style="height:270px;width:1320px">
 				<div align="center">
 					<p:dataTable id="tablaRetiros" value="#{retirosVista.retiros}"
-						var="retiro" paginator="true" rows="5" style="height:350px;width:1200px">
-						<p:column headerText="Id" style="width:20px">
-							<p:outputLabel value="#{retiro.id.retCodigo}" />
-						</p:column>
-						<p:column headerText="Cuenta" style="width:100px">
-							<p:outputLabel value="#{retiro.id.cuentas.cueNumero}" />
-						</p:column>
+						var="retiro" paginator="true" rows="5" rendered="#{retirosVista.reti}"
+						style="height:380px;width:1200px">
 						<p:column headerText="Usuario" style="width:100px">
 							<p:outputLabel value="#{retiro.usuarios.usuNombre}" />
 						</p:column>

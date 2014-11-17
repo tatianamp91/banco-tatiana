@@ -2,15 +2,19 @@ package co.edu.usbcali.vista;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
+import co.edu.usbcali.modelo.Cuentas;
 import co.edu.usbcali.modelo.TiposDocumentos;
 import co.edu.usbcali.utilidades.Utilidades;
 
@@ -94,7 +98,14 @@ public class ClientesVista {
 			
 			delegadoDeNegocio.crearCliente(cliente);
 			Utilidades.addInfoMessage(("El cliente se creó correctamente"));
+			
+			List<Cuentas> cuentas = delegadoDeNegocio.consultarCuentasCliente(cliente);
+			Cuentas cuen = null;
+			for (Cuentas cuenta : cuentas) {
+				cuen = cuenta;
+			}			
 			Utilidades.addInfoMessage(("Se asigno una cuenta al cliente"));
+			Utilidades.addInfoMessage(("Número: "+cuen.getCueNumero()+" Clave: "+cuen.getCueClave()));
 			accion_limpiar();		
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
