@@ -30,60 +30,49 @@ public class ConsignacionesVista {
 	private IDelegadoDeNegocio delegadoDeNegocio;
 	
 	private List<Consignaciones> consignaciones;
-	private InputText txtIdCliente;
-	private List<Cuentas> cuentas;
-	private List<Long> numerosCuentas;
-	private Long numCuenta;
+	private InputText txtNumCue;
+	private InputText txtCliId;
 	private InputText txtTipoDoc;
 	private InputText txtNombre;
 	private InputText txtDireccion;
 	private InputText txtTelefono;
 	private InputText txtEmail;
 	private InputText txtValor;
-	private InputText txtDescripcion;
-	private Long usuCedula;
 	private CommandButton btnCrear;
 	private CommandButton btnLimpiar;
+	private boolean consig;
 	
 	public void accion_limpiar(){
-		txtIdCliente.setValue("");
+		txtNumCue.setValue("");
+		txtCliId.setValue("");
 		txtTipoDoc.setValue("");
 		txtNombre.setValue("");
 		txtDireccion.setValue("");
 		txtTelefono.setValue("");
 		txtEmail.setValue("");
 		txtValor.setValue("");
-		txtDescripcion.setValue("");
 		btnCrear.setDisabled(true);
 		consignaciones = null;
-		cuentas = null;
-		numCuenta = null;
+		consig = false;
 	}
 	
-	public void consultarTxtIdCliente(){
+	public void consultarTxtNumCue(){
 		try{
-			Clientes cliente = delegadoDeNegocio.consultarCliente(Long.parseLong(txtIdCliente.getValue().toString()));
-			if (cliente != null) {
-				cuentas = delegadoDeNegocio.consultarCuentasCliente(cliente);
-				if(cuentas != null){
-					numerosCuentas = new ArrayList<Long>();
-					for (Cuentas cuenta : cuentas) {
-						numerosCuentas.add(cuenta.getCueNumero()); 
-					}
-				}
-				txtTipoDoc.setValue(cliente.getTiposDocumentos().getTdocNombre());
-				txtNombre.setValue(cliente.getCliNombre());
-				txtDireccion.setValue(cliente.getCliDireccion());
-				txtTelefono.setValue(cliente.getCliTelefono());
-				txtEmail.setValue(cliente.getCliMail());
+			Cuentas cuenta = delegadoDeNegocio.consultarCuenta(Long.parseLong(txtNumCue.getValue().toString()));
+			if(cuenta != null){
+				txtCliId.setValue(cuenta.getClientes().getCliId());
+				txtTipoDoc.setValue(cuenta.getClientes().getTiposDocumentos().getTdocNombre());
+				txtNombre.setValue(cuenta.getClientes().getCliNombre());
+				txtDireccion.setValue(cuenta.getClientes().getCliDireccion());
+				txtTelefono.setValue(cuenta.getClientes().getCliTelefono());
+				txtEmail.setValue(cuenta.getClientes().getCliMail());
 				txtValor.setValue("");
-				txtDescripcion.setValue("");
 				btnCrear.setDisabled(false);
+				consultarConsignaciones();
 			} else {
-				Utilidades.addErrorMessage("No existe cliente");
+				Utilidades.addErrorMessage("No existe la cuenta");
 				btnCrear.setDisabled(true);
-			}
-		
+			}		
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}
@@ -91,10 +80,10 @@ public class ConsignacionesVista {
 	
 	public void consultarConsignaciones() {
 		try{
-			Cuentas cuenta = delegadoDeNegocio.consultarCuenta(numCuenta);
+			Cuentas cuenta = delegadoDeNegocio.consultarCuenta(Long.parseLong(txtNumCue.getValue().toString()));
 			if(cuenta != null){
-				consignaciones = null;
 				consignaciones = delegadoDeNegocio.consultarConsignacionesCuenta(cuenta);
+				consig = true;
 			}
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
@@ -107,18 +96,18 @@ public class ConsignacionesVista {
 			
 			ConsignacionesId id = new ConsignacionesId();
 			Long idConsignacion = delegadoDeNegocio.getConsecutivoConsignaciones("SEQ_CONSIGNACIONES");
-			Cuentas cuen = delegadoDeNegocio.consultarCuenta(numCuenta);
+			Cuentas cuen = delegadoDeNegocio.consultarCuenta(Long.parseLong(txtNumCue.getValue().toString()));
 			id.setConCodigo(idConsignacion);
 			id.setCuentas(cuen);	
 			consignacion.setId(id);
 			
 			HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	        long cedula = (long) httpSession.getAttribute("usuario");
-			usuCedula = cedula;
-			Usuarios usuario = delegadoDeNegocio.consultarUsuario(usuCedula);
+			
+			Usuarios usuario = delegadoDeNegocio.consultarUsuario(cedula);
 			consignacion.setUsuarios(usuario);
 			consignacion.setConValor(Double.parseDouble(txtValor.getValue().toString()));
-			consignacion.setConDescripcion(txtDescripcion.getValue().toString());
+			consignacion.setConDescripcion("Consignación");
 			consignacion.setConFecha(new Date());
 			
 			delegadoDeNegocio.consignacion(consignacion);
@@ -128,143 +117,83 @@ public class ConsignacionesVista {
 			Utilidades.addErrorMessage(e.getMessage());
 		}
 	}
-			
+	
 	public IDelegadoDeNegocio getDelegadoDeNegocio() {
 		return delegadoDeNegocio;
 	}
-
 	public void setDelegadoDeNegocio(IDelegadoDeNegocio delegadoDeNegocio) {
 		this.delegadoDeNegocio = delegadoDeNegocio;
 	}
-
 	public List<Consignaciones> getConsignaciones() {
-		try{
-			if(consignaciones == null){
-				consignaciones = delegadoDeNegocio.consultarConsignaciones();
-			}
-		}catch(Exception e){
-			Utilidades.addErrorMessage(e.getMessage());
-		}
 		return consignaciones;
 	}
-
 	public void setConsignaciones(List<Consignaciones> consignaciones) {
 		this.consignaciones = consignaciones;
 	}
-
-	public InputText getTxtIdCliente() {
-		return txtIdCliente;
+	public InputText getTxtNumCue() {
+		return txtNumCue;
 	}
-
-	public void setTxtIdCliente(InputText txtIdCliente) {
-		this.txtIdCliente = txtIdCliente;
+	public void setTxtNumCue(InputText txtNumCue) {
+		this.txtNumCue = txtNumCue;
 	}
-
-	public List<Cuentas> getCuentas() {
-		return cuentas;
+	public InputText getTxtCliId() {
+		return txtCliId;
 	}
-
-	public void setCuentas(List<Cuentas> cuentas) {
-		this.cuentas = cuentas;
+	public void setTxtCliId(InputText txtCliId) {
+		this.txtCliId = txtCliId;
 	}
-
-	public Long getNumCuenta() {
-		return numCuenta;
-	}
-
-	public void setnumCuenta(Long numCuenta) {
-		this.numCuenta = numCuenta;
-	}
-
 	public InputText getTxtTipoDoc() {
 		return txtTipoDoc;
 	}
-
 	public void setTxtTipoDoc(InputText txtTipoDoc) {
 		this.txtTipoDoc = txtTipoDoc;
 	}
-
 	public InputText getTxtNombre() {
 		return txtNombre;
 	}
-
 	public void setTxtNombre(InputText txtNombre) {
 		this.txtNombre = txtNombre;
 	}
-
 	public InputText getTxtDireccion() {
 		return txtDireccion;
 	}
-
 	public void setTxtDireccion(InputText txtDireccion) {
 		this.txtDireccion = txtDireccion;
 	}
-
 	public InputText getTxtTelefono() {
 		return txtTelefono;
 	}
-
 	public void setTxtTelefono(InputText txtTelefono) {
 		this.txtTelefono = txtTelefono;
 	}
-
 	public InputText getTxtEmail() {
 		return txtEmail;
 	}
-
 	public void setTxtEmail(InputText txtEmail) {
 		this.txtEmail = txtEmail;
 	}
-
-	public Long getUsuCedula() {
-		return usuCedula;
-	}
-
-	public void setUsuCedula(Long usuCedula) {
-		this.usuCedula = usuCedula;
-	}
-
-	public CommandButton getBtnCrear() {
-		return btnCrear;
-	}
-
-	public void setBtnCrear(CommandButton btnCrear) {
-		this.btnCrear = btnCrear;
-	}
-
-	public CommandButton getBtnLimpiar() {
-		return btnLimpiar;
-	}
-
-	public void setBtnLimpiar(CommandButton btnLimpiar) {
-		this.btnLimpiar = btnLimpiar;
-	}
-
 	public InputText getTxtValor() {
 		return txtValor;
 	}
-
 	public void setTxtValor(InputText txtValor) {
 		this.txtValor = txtValor;
 	}
-
-	public InputText getTxtDescripcion() {
-		return txtDescripcion;
+	public CommandButton getBtnCrear() {
+		return btnCrear;
 	}
-
-	public void setTxtDescripcion(InputText txtDescripcion) {
-		this.txtDescripcion = txtDescripcion;
+	public void setBtnCrear(CommandButton btnCrear) {
+		this.btnCrear = btnCrear;
 	}
-
-	public List<Long> getNumerosCuentas() {
-		return numerosCuentas;
+	public CommandButton getBtnLimpiar() {
+		return btnLimpiar;
 	}
-
-	public void setNumerosCuentas(List<Long> numerosCuentas) {
-		this.numerosCuentas = numerosCuentas;
+	public void setBtnLimpiar(CommandButton btnLimpiar) {
+		this.btnLimpiar = btnLimpiar;
 	}
-
-	public void setNumCuenta(Long numCuenta) {
-		this.numCuenta = numCuenta;
+	public boolean isConsig() {
+		return consig;
+	}
+	public void setConsig(boolean consig) {
+		this.consig = consig;
 	}
 }

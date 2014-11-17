@@ -29,7 +29,9 @@ public class TransladosVista {
 	private Long cliId;
 	private List<Cuentas> cuentas;
 	private List<Long> numerosCuentasOrigen;
+	private InputText saldoOrigen;
 	private List<Long> numerosCuentasDestino;
+	private InputText saldoDestino;
 	private Long numCuentaOrigen;
 	private Long numCuentaDestino;
 	private InputText txtValor;
@@ -37,26 +39,24 @@ public class TransladosVista {
 	private CommandButton btnLimpiar;
 	
 	public void accion_limpiar(){
-		cuentas = null;
-		numerosCuentasOrigen = null;
-		numerosCuentasDestino = null;
-		numCuentaOrigen = null;
-		numCuentaDestino = null;
+		consultarCuentaOrigen();
+		consultarCuentaDestino();
 		txtValor.setValue("");
 	}
 	
-	public void consultarCuentasDestino() {
+	public void consultarCuentaOrigen() {
 		try{
-			if(numerosCuentasDestino == null){
-				if(cuentas != null){
-					numerosCuentasDestino = new ArrayList<Long>();
-					for (Cuentas cuenta : cuentas) {
-						if(cuenta.getCueNumero() != numCuentaOrigen){
-							numerosCuentasDestino.add(cuenta.getCueNumero()); 
-						}
-					}
-				}
-			}
+			Cuentas cuentaOrig = delegadoDeNegocio.consultarCuenta(numCuentaOrigen);
+			saldoOrigen.setValue(cuentaOrig.getCueSaldo());
+		}catch(Exception e){
+			Utilidades.addErrorMessage(e.getMessage());
+		}
+	}
+	
+	public void consultarCuentaDestino() {
+		try{
+			Cuentas cuentaDes = delegadoDeNegocio.consultarCuenta(numCuentaDestino);
+			saldoDestino.setValue(cuentaDes.getCueSaldo());
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}
@@ -68,6 +68,7 @@ public class TransladosVista {
 			Double valorTranslado = Double.parseDouble(txtValor.getValue().toString());
 			Cuentas cuentaOrigen = delegadoDeNegocio.consultarCuenta(numCuentaOrigen);
 			Cuentas cuentaDestino = delegadoDeNegocio.consultarCuenta(numCuentaDestino);
+			
 			delegadoDeNegocio.translado(usuario, valorTranslado, cuentaOrigen, cuentaDestino);
 			Utilidades.addInfoMessage(("El translado se realizo correctamente"));
 			accion_limpiar();		
@@ -136,40 +137,56 @@ public class TransladosVista {
 		}
 		return numerosCuentasOrigen;
 	}
-
+	
 	public void setNumerosCuentasOrigen(List<Long> numerosCuentasOrigen) {
 		this.numerosCuentasOrigen = numerosCuentasOrigen;
 	}
-
 	public List<Long> getNumerosCuentasDestino() {
+		try{
+			if(numerosCuentasDestino == null){
+				if(cuentas != null){
+					numerosCuentasDestino = new ArrayList<Long>();
+					for (Cuentas cuenta : cuentas) {
+						numerosCuentasDestino.add(cuenta.getCueNumero()); 
+					}
+				}
+			}
+		}catch(Exception e){
+			Utilidades.addErrorMessage(e.getMessage());
+		}
 		return numerosCuentasDestino;
 	}
-
 	public void setNumerosCuentasDestino(List<Long> numerosCuentasDestino) {
 		this.numerosCuentasDestino = numerosCuentasDestino;
 	}
-
 	public Long getCliId() {
 		return cliId;
 	}
-
 	public void setCliId(Long cliId) {
 		this.cliId = cliId;
 	}
-
 	public Long getNumCuentaOrigen() {
 		return numCuentaOrigen;
 	}
-
 	public void setNumCuentaOrigen(Long numCuentaOrigen) {
 		this.numCuentaOrigen = numCuentaOrigen;
 	}
-
 	public Long getNumCuentaDestino() {
 		return numCuentaDestino;
 	}
-
 	public void setNumCuentaDestino(Long numCuentaDestino) {
 		this.numCuentaDestino = numCuentaDestino;
+	}
+	public InputText getSaldoOrigen() {
+		return saldoOrigen;
+	}
+	public void setSaldoOrigen(InputText saldoOrigen) {
+		this.saldoOrigen = saldoOrigen;
+	}
+	public InputText getSaldoDestino() {
+		return saldoDestino;
+	}
+	public void setSaldoDestino(InputText saldoDestino) {
+		this.saldoDestino = saldoDestino;
 	}
 }

@@ -13,57 +13,53 @@
 		<ui:insert name="header">
 			<ui:include src="/Menu/menuCajero.xhtml" />
 		</ui:insert>
-		<h:form>
+		<h:form id="form">
 			<p:growl id="msg" />
 			<p:panel id="panelConsignaciones" header="Consignaciones"
 				style="height:200px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="6">
-						<p:outputLabel value="*Id cliente:" />
-						<p:inputText id="txtIdCliente" binding="#{consignacionesVista.txtIdCliente}"
-							required="true" requiredMessage="debe ingresar el id del cliente">
-							<p:ajax listener="#{consignacionesVista.consultarTxtIdCliente}"
-								update="panelConsignaciones,panelBotonesConsignaciones,msg" />
+						<p:outputLabel value="*Número de Cuenta:" />
+						<p:inputText id="txtNumCue"
+							binding="#{consignacionesVista.txtNumCue}" required="true"
+							requiredMessage="Debe ingresar el número de cuenta">
+							<p:ajax listener="#{consignacionesVista.consultarTxtNumCue}"
+								update="panelConsignaciones,panelBotonesConsignaciones,panelTablaConsignaciones,msg" />
 						</p:inputText>
 
+						<p:outputLabel value="Número de identificación:" />
+						<p:inputText id="txtCliId"
+							binding="#{consignacionesVista.txtCliId}" disabled="true" />
+
 						<p:outputLabel value="Tipo de Documento:" />
-						<p:inputText id="tipoDocumento"
-							binding="#{consignacionesVista.txtTipoDoc}" disabled="true"/>
+						<p:inputText id="txtTipoDoc"
+							binding="#{consignacionesVista.txtTipoDoc}" disabled="true" />
 
 						<p:outputLabel value="Nombre:" />
-						<p:inputText id="txtNombre" binding="#{consignacionesVista.txtNombre}" disabled="true"/>
+						<p:inputText id="txtNombre"
+							binding="#{consignacionesVista.txtNombre}" disabled="true" />
 
 						<p:outputLabel value="Dirección:" />
 						<p:inputText id="txtDireccion"
-							binding="#{consignacionesVista.txtDireccion}" disabled="true"/>
+							binding="#{consignacionesVista.txtDireccion}" disabled="true" />
 
 						<p:outputLabel value="Teléfono:" />
 						<p:inputText id="txtTelefono"
-							binding="#{consignacionesVista.txtTelefono}" disabled="true"/>
+							binding="#{consignacionesVista.txtTelefono}" disabled="true" />
 
 						<p:outputLabel value="Email:" />
-						<p:inputText id="txtEmail" binding="#{consignacionesVista.txtEmail}" disabled="true"/>
-						
-						<p:outputLabel value="*Cuentas:" />
-						<p:selectOneMenu id="cuentas" value="#{consignacionesVista.numCuenta}"
-							required="true" requiredMessage="Debe seleccionar un número de cuenta">
-							<f:selectItem itemValue="-1" itemLabel="Seleccione"/>
-							<f:selectItems value="#{consignacionesVista.numerosCuentas}" />
-							<p:ajax listener="#{consignacionesVista.consultarConsignaciones}"
-								update="panelTablaConsignaciones,msg" />
-						</p:selectOneMenu>
-						
+						<p:inputText id="txtEmail"
+							binding="#{consignacionesVista.txtEmail}" disabled="true" />
+
 						<p:outputLabel value="*Valor:" />
-						<p:inputText id="txtValor" binding="#{consignacionesVista.txtValor}"
-							required="true" requiredMessage="Debe ingresar el valor del la cosignción"/>
-						
-						<p:outputLabel value="*Descripción:" />
-						<p:inputText id="txtDescripcion" binding="#{consignacionesVista.txtDescripcion}"
-							required="true" requiredMessage="Debe ingresar la descripción del la cosignción"/>
+						<p:inputText id="txtValor"
+							binding="#{consignacionesVista.txtValor}" required="true"
+							requiredMessage="Debe ingresar el valor del la cosignación" />
 					</p:panelGrid>
 				</div>
 			</p:panel>
-			<p:panel id="panelBotonesConsignaciones" style="height:50px;width:1320px">
+			<p:panel id="panelBotonesConsignaciones"
+				style="height:50px;width:1320px">
 				<div align="center">
 					<p:commandButton id="btnCrear" value="Consignar"
 						action="#{consignacionesVista.accion_consignar}"
@@ -75,16 +71,13 @@
 						update="panelConsignaciones,panelBotonesConsignaciones,panelTablaConsignaciones,msg" />
 				</div>
 			</p:panel>
-			<p:panel id="panelTablaConsignaciones" style="height:270px;width:1320px">
+			<p:panel id="panelTablaConsignaciones"
+				style="height:270px;width:1320px">
 				<div align="center">
-					<p:dataTable id="tablaConsignaciones" value="#{consignacionesVista.consignaciones}"
-						var="consignacion" paginator="true" rows="5" style="height:350px;width:1200px">
-						<p:column headerText="Id" style="width:20px">
-							<p:outputLabel value="#{consignacion.id.conCodigo}" />
-						</p:column>
-						<p:column headerText="Cuenta" style="width:100px">
-							<p:outputLabel value="#{consignacion.id.cuentas.cueNumero}" />
-						</p:column>
+					<p:dataTable id="tablaConsignaciones"
+						value="#{consignacionesVista.consignaciones}" var="consignacion"
+						paginator="true" rows="5" rendered="#{consignacionesVista.consig}"
+						style="height:380px;width:1200px">
 						<p:column headerText="Usuario" style="width:100px">
 							<p:outputLabel value="#{consignacion.usuarios.usuNombre}" />
 						</p:column>

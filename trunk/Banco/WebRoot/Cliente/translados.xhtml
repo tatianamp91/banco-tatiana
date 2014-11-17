@@ -18,16 +18,17 @@
 			<p:panel id="panelTransdos" header="Transacciones"
 				style="height:200px;width:1320px">
 				<div align="center">
-					<p:panelGrid columns="2">
+					<p:panelGrid columns="3">
 						<p:outputLabel value="*Cuenta Origen:" />
 						<p:selectOneMenu id="cuentaOrigen"
 							value="#{transladosVista.numCuentaOrigen}"
 							required="true" requiredMessage="Debe seleccionar cuanta origen">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{transladosVista.numerosCuentasOrigen}" />
-								<p:ajax listener="#{transladosVista.consultarCuentasDestino}"
-									update="cuentaDestino,msg" />
+								<p:ajax listener="#{transladosVista.consultarCuentaOrigen}"
+									update="panelTransdos,saldoOrigen,msg" />
 						</p:selectOneMenu>
+						<p:inputText id="saldoOrigen" binding="#{transladosVista.saldoOrigen}" disabled="true"/>
 
 						<p:outputLabel value="*Cuenta Destino:" />
 						<p:selectOneMenu id="cuentaDestino"
@@ -35,7 +36,11 @@
 							required="true" requiredMessage="Debe seleccionar cuanta destino">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{transladosVista.numerosCuentasDestino}" />
+							<f:selectItems value="#{transladosVista.numerosCuentasOrigen}" />
+								<p:ajax listener="#{transladosVista.consultarCuentaDestino}"
+									update="panelTransdos,saldoDestino,msg" />
 						</p:selectOneMenu>
+						<p:inputText id="saldoDestino" binding="#{transladosVista.saldoDestino}" disabled="true"/>
 
 						<p:outputLabel value="*Valor:" />
 						<p:inputText id="txtValor" binding="#{transladosVista.txtValor}" 
@@ -47,11 +52,11 @@
 				<div align="center">
 					<p:commandButton id="btnCrear" value="Realizar translado"
 						action="#{transladosVista.accion_translado}"
-						binding="#{transladosVista.btnCrear}" update="panelTransdos,msg" />
+						binding="#{transladosVista.btnCrear}" update="panelTransdos,saldoOrigen,msg" />
 
 					<p:commandButton id="btnLimpiar" value="Limpiar"
 						action="#{transladosVista.accion_limpiar}"
-						binding="#{transladosVista.btnLimpiar}" update="panelTransdos,msg" />
+						binding="#{transladosVista.btnLimpiar}" update="panelTransdos,saldoDestino,msg" />
 				</div>
 			</p:panel>
 		</h:form>
