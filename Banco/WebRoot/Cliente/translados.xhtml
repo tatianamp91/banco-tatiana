@@ -36,7 +36,6 @@
 							required="true" requiredMessage="Debe seleccionar cuanta destino">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{transladosVista.numerosCuentasDestino}" />
-							<f:selectItems value="#{transladosVista.numerosCuentasOrigen}" />
 								<p:ajax listener="#{transladosVista.consultarCuentaDestino}"
 									update="panelTransdos,saldoDestino,msg" />
 						</p:selectOneMenu>

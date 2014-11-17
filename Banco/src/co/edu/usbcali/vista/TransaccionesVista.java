@@ -35,6 +35,7 @@ public class TransaccionesVista {
 	private Long numCuenta;
 	private Long cliId;
 	private CommandButton btnLimpiar;
+	private boolean datos;
 	
 	public void accion_limpiar(){
 		consignaciones = null;
@@ -49,6 +50,7 @@ public class TransaccionesVista {
 				consignaciones = delegadoDeNegocio.consultarConsignacionesCuenta(cuenta);
 				retiros = delegadoDeNegocio.consultarRetirosCuenta(cuenta);
 				txtSaldo = cuenta.getCueSaldo().toString();
+				datos = true;
 			}
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
@@ -156,5 +158,13 @@ public class TransaccionesVista {
 
 	public void setTxtSaldo(String txtSaldo) {
 		this.txtSaldo = txtSaldo;
-	}	
+	}
+
+	public boolean isDatos() {
+		return datos;
+	}
+
+	public void setDatos(boolean datos) {
+		this.datos = datos;
+	}
 }

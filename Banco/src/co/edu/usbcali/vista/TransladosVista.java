@@ -47,7 +47,7 @@ public class TransladosVista {
 	public void consultarCuentaOrigen() {
 		try{
 			Cuentas cuentaOrig = delegadoDeNegocio.consultarCuenta(numCuentaOrigen);
-			saldoOrigen.setValue(cuentaOrig.getCueSaldo());
+			saldoOrigen.setValue("$"+cuentaOrig.getCueSaldo());
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}
@@ -56,7 +56,7 @@ public class TransladosVista {
 	public void consultarCuentaDestino() {
 		try{
 			Cuentas cuentaDes = delegadoDeNegocio.consultarCuenta(numCuentaDestino);
-			saldoDestino.setValue(cuentaDes.getCueSaldo());
+			saldoDestino.setValue("$"+cuentaDes.getCueSaldo());
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());
 		}

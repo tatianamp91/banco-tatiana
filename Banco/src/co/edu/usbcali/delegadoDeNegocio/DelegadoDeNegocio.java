@@ -109,12 +109,6 @@ public class DelegadoDeNegocio implements IDelegadoDeNegocio {
 	public void modificarCuenta(Cuentas cuenta) throws Exception {
 		cuentasLogica.modificarCuenta(cuenta);
 	}
-	
-	
-	@Override
-	public void eliminarCuenta(Cuentas cuenta) throws Exception {
-		cuentasLogica.eliminarCuenta(cuenta);
-	}
 
 	@Override
 	public Cuentas consultarCuenta(Long cueNumero) throws Exception {

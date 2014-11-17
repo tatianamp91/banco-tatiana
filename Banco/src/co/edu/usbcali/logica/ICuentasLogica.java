@@ -13,8 +13,6 @@ public interface ICuentasLogica {
 	
 	public void modificarCuenta (Cuentas cuenta) throws Exception;
 	
-	public void eliminarCuenta (Cuentas cuenta) throws Exception;
-	
 	public Cuentas consultarCuenta (Long  cueNumero) throws Exception;
 
 	public List<Cuentas> consultarCuentas () throws Exception;

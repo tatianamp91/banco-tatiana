@@ -29,11 +29,6 @@ public class CuentasDAO implements ICuentasDAO {
 	}
 
 	@Override
-	public void eliminarCuenta(Cuentas cuenta) throws Exception {
-		sessionFactory.getCurrentSession().delete(cuenta);		
-	}
-
-	@Override
 	public Cuentas consultarCuenta(Long cueNumero) throws Exception {
 		return (Cuentas) sessionFactory.getCurrentSession().get(Cuentas.class, cueNumero);
 	}

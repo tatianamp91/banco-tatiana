@@ -33,6 +33,7 @@ public class Autenticacion{
     	try{
     		String usuario = txtUsuario.getValue().toString();
     		String contrasena = txtContraseña.getValue().toString();
+    		rol = null;
     		
 	        Usuarios usuarioBD = delegadoDeNegocio.consultarUsuariosLoginClave(usuario, contrasena);	
 	        if(usuarioBD != null){

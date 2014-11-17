@@ -75,6 +75,7 @@ public class CuentasVista {
 			
 			delegadoDeNegocio.crearCuenta(cuenta);
 			Utilidades.addInfoMessage(("La cuenta se creó correctamente"));
+			Utilidades.addInfoMessage(("Número: "+cuenta.getCueNumero()+" Clave: "+cuenta.getCueClave()));
 			accion_limpiar();		
 		}catch(Exception e){
 			Utilidades.addErrorMessage(e.getMessage());

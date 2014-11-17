@@ -130,36 +130,7 @@ public class CuentasLogica implements ICuentasLogica {
 			throw new Exception(e);
 		}
 	}
-	
-	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void eliminarCuenta(Cuentas cuenta) throws Exception {
-		try{
-			if(cuenta == null){
-				throw new Exception("La cuenta es nula");
-			}
-			if(cuenta.getCueNumero() == null){
-				throw new Exception("El numero de la cuenta no puede ser vacio");
-			}
-			List<Cuentas> cuentas = cuentasDAO.consultarCuentasRetiros(cuenta.getCueNumero());
-			if(cuentas.size() > 0){
-				throw new Exception("La cuenta tiene retiros asociados no puede ser eliminada");
-			}
-			List<Cuentas> cue = cuentasDAO.consultarCuentasConsignaciones(cuenta.getCueNumero());
-			if(cue.size() > 0){
-				throw new Exception("La cuenta tiene consignaciones asociadas no puede ser eliminada");
-			}
-			Cuentas entidad = cuentasDAO.consultarCuenta(cuenta.getCueNumero());
-			if(entidad == null){
-				throw new Exception("La cuenta no existe");
-			}
-			
-			cuentasDAO.eliminarCuenta(entidad);
-		}catch(Exception e){
-			throw new Exception(e);
-		}		
-	}
-	
+		
 	@Override
 	@Transactional(readOnly = true)
 	public Cuentas consultarCuenta(Long cueNumero) throws Exception {

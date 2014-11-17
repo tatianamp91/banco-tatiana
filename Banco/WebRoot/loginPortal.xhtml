@@ -10,24 +10,30 @@
 		<title>Login</title>
 	</h:head>
 	<h:body>
+		<ui:insert name="header">
+			<ui:include src="/WEB-INF/facelets/header.jspx" />
+		</ui:insert>
 		<h:form>
 			<p:growl id="msg" />
-			<p:panel id="loginPanel" header="Login" style="height:180px;width:1320px">
+			<p:panel id="loginPanel" header="Login"
+				style="height:180px;width:1320px">
 				<div align="center">
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Número de identificación:" />
 						<p:inputText id="txtCliId" binding="#{autenticacion.txtCliId}"
 							required="true" requiredMessage="Debe ingresar su identificación">
 						</p:inputText>
-						
+
 						<p:outputLabel value="Número de cuenta:" />
 						<p:inputText id="txtNumCue" binding="#{autenticacion.txtNumCue}"
-							required="true" requiredMessage="Debe ingresar un número de cuenta">
+							required="true"
+							requiredMessage="Debe ingresar un número de cuenta">
 						</p:inputText>
 
 						<p:outputLabel value="Contraseña:" />
-						<p:password id="txtContraseña" binding="#{autenticacion.txtContraseña}"
-							required="true" requiredMessage="Debe ingresar la contraseña de la cuenta" />
+						<p:password id="txtContraseña"
+							binding="#{autenticacion.txtContraseña}" required="true"
+							requiredMessage="Debe ingresar la contraseña de la cuenta" />
 					</p:panelGrid>
 				</div>
 			</p:panel>

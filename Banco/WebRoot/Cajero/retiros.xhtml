@@ -75,16 +75,16 @@
 					<p:dataTable id="tablaRetiros" value="#{retirosVista.retiros}"
 						var="retiro" paginator="true" rows="5" rendered="#{retirosVista.reti}"
 						style="height:380px;width:1200px">
-						<p:column headerText="Usuario" style="width:100px">
+						<p:column headerText="Usuario" style="width:100px" sortBy="#{retiro.usuarios.usuNombre}">
 							<p:outputLabel value="#{retiro.usuarios.usuNombre}" />
 						</p:column>
-						<p:column headerText="Valor" style="width:100px">
+						<p:column headerText="Valor" style="width:100px" sortBy="#{retiro.retValor}">
 							<p:outputLabel value="#{retiro.retValor}" />
 						</p:column>
-						<p:column headerText="Fecha" style="width:100px">
+						<p:column headerText="Fecha" style="width:100px" sortBy="#{retiro.retFecha}">
 							<p:outputLabel value="#{retiro.retFecha}" />
 						</p:column>
-						<p:column headerText="Descripción" style="width:100px">
+						<p:column headerText="Descripción" style="width:100px" sortBy="#{retiro.retDescripcion}">
 							<p:outputLabel value="#{retiro.retDescripcion}" />
 						</p:column>
 					</p:dataTable>

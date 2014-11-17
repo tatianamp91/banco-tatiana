@@ -28,7 +28,7 @@
 
 						<p:outputLabel value="*Tipo de Usuario:" />
 						<p:selectOneMenu id="tipoUsuario"
-							binding="#{usuariosVista.tipoUsuario}"
+							value="#{usuariosVista.tipoUsuario}"
 							required="true" requiredMessage="Debe seleccionar el tipo de usuario">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{usuariosVista.tiposUsuarios}" />

@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.Clientes;
@@ -29,7 +28,7 @@ public class ClientesVista {
 	private List<Clientes> clientes; 
 	private InputText txtId;
 	private List<SelectItem> tiposDocumentos;
-	private SelectOneMenu tipoDocumento;
+	private Long tipoDocumento;
 	private InputText txtNombre;
 	private InputText txtDireccion;
 	private InputText txtTelefono;
@@ -45,7 +44,7 @@ public class ClientesVista {
 			
 			Clientes cliente = delegadoDeNegocio.consultarCliente(id);
 			if(cliente != null){
-				tipoDocumento.setValue(cliente.getTiposDocumentos().getTdocCodigo());
+				tipoDocumento = cliente.getTiposDocumentos().getTdocCodigo();
 				txtNombre.setValue(cliente.getCliNombre());
 				txtDireccion.setValue(cliente.getCliDireccion());
 				txtTelefono.setValue(cliente.getCliTelefono());
@@ -54,7 +53,7 @@ public class ClientesVista {
 				btnModificar.setDisabled(false);
 				btnEliminar.setDisabled(false);				
 			}else{
-				tipoDocumento.setValue("");
+				tipoDocumento = null;
 				txtNombre.setValue("");
 				txtDireccion.setValue("");
 				txtTelefono.setValue("");
@@ -70,7 +69,7 @@ public class ClientesVista {
 	
 	public void accion_limpiar(){
 		txtId.setValue("");
-		tipoDocumento.setValue("");
+		tipoDocumento = null;
 		txtNombre.setValue("");
 		txtDireccion.setValue("");
 		txtTelefono.setValue("");
@@ -86,9 +85,7 @@ public class ClientesVista {
 			Clientes cliente = new Clientes();
 			
 			cliente.setCliId(Long.parseLong(txtId.getValue().toString()));
-			
-			Long idTipoDoc = Long.parseLong(tipoDocumento.getValue().toString());
-			TiposDocumentos tipoDoc = delegadoDeNegocio.consultarTipoDocumento(idTipoDoc);
+			TiposDocumentos tipoDoc = delegadoDeNegocio.consultarTipoDocumento(tipoDocumento);
 			
 			cliente.setTiposDocumentos(tipoDoc);
 			cliente.setCliNombre(txtNombre.getValue().toString());
@@ -117,8 +114,7 @@ public class ClientesVista {
 			Long id = Long.parseLong(txtId.getValue().toString());
 			Clientes cliente = delegadoDeNegocio.consultarCliente(id);
 			if(cliente != null){
-				Long idTipoDoc = Long.parseLong(tipoDocumento.getValue().toString());
-				TiposDocumentos tipoDoc = delegadoDeNegocio.consultarTipoDocumento(idTipoDoc);
+				TiposDocumentos tipoDoc = delegadoDeNegocio.consultarTipoDocumento(tipoDocumento);
 				
 				cliente.setTiposDocumentos(tipoDoc);
 				cliente.setCliNombre(txtNombre.getValue().toString());
@@ -191,15 +187,19 @@ public class ClientesVista {
 		}
 		return tiposDocumentos;
 	}
+	
 	public void setTiposDocumentos(List<SelectItem> tiposDocumentos) {
 		this.tiposDocumentos = tiposDocumentos;
 	}
-	public SelectOneMenu getTipoDocumento() {
+	
+	public Long getTipoDocumento() {
 		return tipoDocumento;
 	}
-	public void setTipoDocumento(SelectOneMenu tipoDocumento) {
+
+	public void setTipoDocumento(Long tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
+
 	public InputText getTxtNombre() {
 		return txtNombre;
 	}

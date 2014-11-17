@@ -16,11 +16,11 @@
 		<h:form id="form">
 			<p:growl id="msg" />
 			<p:panel id="panelTablaClaveCuentas"
-				style="height:280px;width:1320px">
+				style="height:230px;width:1320px">
 				<div align="center">
 					<p:dataTable id="tablaClaveCuentas"
 						value="#{claveCuentasVista.cuentas}" var="cuenta" paginator="true"
-						rows="3" style="height:270px;width:800px">
+						rows="2" style="height:270px;width:800px">
 						<p:growl id="msg1" />
 						<p:column headerText="Número Cuenta">
 							<p:outputLabel value="#{cuenta.cueNumero}" />
@@ -69,7 +69,7 @@
 			<p:panel id="panelBotonesCuentas" style="height:50px;width:1320px"
 				rendered="#{claveCuentasVista.showDialog}">
 				<div align="center">
-					<p:commandButton id="btnModificar" value="Gurdar"
+					<p:commandButton id="btnModificar" value="Guardar"
 						action="#{claveCuentasVista.accion_cambiar_clave}"
 						binding="#{claveCuentasVista.btnModificar}" update=":form" />
 				</div>
