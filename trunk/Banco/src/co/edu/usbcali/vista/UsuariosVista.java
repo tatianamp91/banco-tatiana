@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
 import co.edu.usbcali.modelo.TiposUsuarios;
@@ -27,7 +26,7 @@ public class UsuariosVista {
 	private List<Usuarios> usuarios; 
 	private InputText txtCedula;
 	private List<SelectItem> tiposUsuarios;
-	private SelectOneMenu tipoUsuario;
+	private Long tipoUsuario;
 	private InputText txtNombre;
 	private InputText txtLogin;
 	private String pswClave;
@@ -41,7 +40,7 @@ public class UsuariosVista {
 			Long cedula = Long.parseLong(txtCedula.getValue().toString());			
 			Usuarios usuario = delegadoDeNegocio.consultarUsuario(cedula);
 			if(usuario != null){
-				tipoUsuario.setValue(usuario.getTiposUsuarios().getTusuCodigo());
+				tipoUsuario = usuario.getTiposUsuarios().getTusuCodigo();
 				txtNombre.setValue(usuario.getUsuNombre());
 				txtLogin.setValue(usuario.getUsuLogin());
 				pswClave = usuario.getUsuClave();
@@ -49,7 +48,7 @@ public class UsuariosVista {
 				btnModificar.setDisabled(false);
 				btnEliminar.setDisabled(false);				
 			}else{
-				tipoUsuario.setValue("");
+				tipoUsuario = null;
 				txtNombre.setValue("");
 				txtLogin.setValue("");
 				pswClave = "";
@@ -64,7 +63,7 @@ public class UsuariosVista {
 	
 	public void accion_limpiar(){
 		txtCedula.setValue("");
-		tipoUsuario.setValue("");
+		tipoUsuario = null;
 		txtNombre.setValue("");
 		txtLogin.setValue("");
 		pswClave = "";
@@ -79,8 +78,7 @@ public class UsuariosVista {
 			Usuarios usuario = new Usuarios();			
 			usuario.setUsuCedula(Long.parseLong(txtCedula.getValue().toString()));	
 			
-			Long idTipoUsu = Long.parseLong(tipoUsuario.getValue().toString());
-			TiposUsuarios tipoUsu = delegadoDeNegocio.consultarTipoUsuario(idTipoUsu);
+			TiposUsuarios tipoUsu = delegadoDeNegocio.consultarTipoUsuario(tipoUsuario);
 			
 			usuario.setTiposUsuarios(tipoUsu);
 			usuario.setUsuNombre(txtNombre.getValue().toString());
@@ -100,8 +98,7 @@ public class UsuariosVista {
 			Long cedula = Long.parseLong(txtCedula.getValue().toString());
 			Usuarios usuario = delegadoDeNegocio.consultarUsuario(cedula);
 			if(usuario != null){			
-				Long idTipoUsu = Long.parseLong(tipoUsuario.getValue().toString());
-				TiposUsuarios tipoUsu = delegadoDeNegocio.consultarTipoUsuario(idTipoUsu);
+				TiposUsuarios tipoUsu = delegadoDeNegocio.consultarTipoUsuario(tipoUsuario);
 				
 				usuario.setTiposUsuarios(tipoUsu);
 				usuario.setUsuNombre(txtNombre.getValue().toString());
@@ -182,11 +179,11 @@ public class UsuariosVista {
 		this.tiposUsuarios = tiposUsuarios;
 	}
 
-	public SelectOneMenu getTipoUsuario() {
+	public Long getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipoUsuario(SelectOneMenu tipoUsuario) {
+	public void setTipoUsuario(Long tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 

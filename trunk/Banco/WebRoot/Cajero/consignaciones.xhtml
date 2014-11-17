@@ -78,16 +78,16 @@
 						value="#{consignacionesVista.consignaciones}" var="consignacion"
 						paginator="true" rows="5" rendered="#{consignacionesVista.consig}"
 						style="height:380px;width:1200px">
-						<p:column headerText="Usuario" style="width:100px">
+						<p:column headerText="Usuario" style="width:100px" sortBy="#{consignacion.usuarios.usuNombre}">
 							<p:outputLabel value="#{consignacion.usuarios.usuNombre}" />
 						</p:column>
-						<p:column headerText="Valor" style="width:100px">
+						<p:column headerText="Valor" style="width:100px" sortBy="#{consignacion.conValor}">
 							<p:outputLabel value="#{consignacion.conValor}" />
 						</p:column>
-						<p:column headerText="Fecha" style="width:100px">
+						<p:column headerText="Fecha" style="width:100px" sortFunction="#{consignacion.conFecha}">
 							<p:outputLabel value="#{consignacion.conFecha}" />
 						</p:column>
-						<p:column headerText="Descripción" style="width:100px">
+						<p:column headerText="Descripción" style="width:100px" sortBy="#{consignacion.conDescripcion}">
 							<p:outputLabel value="#{consignacion.conDescripcion}" />
 						</p:column>
 					</p:dataTable>

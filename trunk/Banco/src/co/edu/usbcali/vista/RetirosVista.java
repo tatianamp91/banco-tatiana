@@ -1,6 +1,5 @@
 package co.edu.usbcali.vista;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +13,6 @@ import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 
 import co.edu.usbcali.delegadoDeNegocio.IDelegadoDeNegocio;
-import co.edu.usbcali.modelo.Clientes;
-import co.edu.usbcali.modelo.Consignaciones;
-import co.edu.usbcali.modelo.ConsignacionesId;
 import co.edu.usbcali.modelo.Cuentas;
 import co.edu.usbcali.modelo.Retiros;
 import co.edu.usbcali.modelo.RetirosId;

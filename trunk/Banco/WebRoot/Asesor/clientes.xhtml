@@ -28,7 +28,7 @@
 
 						<p:outputLabel value="*Tipo de Documento:" />
 						<p:selectOneMenu id="tipoDocumento"
-							binding="#{clientesVista.tipoDocumento}"
+							value="#{clientesVista.tipoDocumento}"
 							required="true" requiredMessage="Debe seleccionar un tipo de documento">
 							<f:selectItem itemValue="-1" itemLabel="Seleccione" />
 							<f:selectItems value="#{clientesVista.tiposDocumentos}" />

@@ -32,6 +32,7 @@ public class ClaveCuentasVista {
 	private String pswClave;
 	private boolean showDialog;
 	private CommandButton btnModificar;
+	private CommandButton btnCancelar;
 	
 	public void showDialog(){
 		showDialog = true;
@@ -136,5 +137,11 @@ public class ClaveCuentasVista {
 	}
 	public void setPswClaveActual(String pswClaveActual) {
 		this.pswClaveActual = pswClaveActual;
-	}	
+	}
+	public CommandButton getBtnCancelar() {
+		return btnCancelar;
+	}
+	public void setBtnCancelar(CommandButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
+	}
 }
